@@ -14,7 +14,7 @@ import {
 interface IUser {
   id: number;
   name: string;
-  password: string;
+  email: string;
 }
 
 interface IAuthProvider {
@@ -34,26 +34,29 @@ const AuthProvider = ({ children }: ChildrenProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    setUser({
-      id: 1,
-      name: 'Bruno',
-      password: 'admin',
-    });
+    const token = localStorage.getItem('@token:access');
+
+    if (token) {
+      setUser({
+        id: 1,
+        name: 'Bruno',
+        email: 'admin@admin',
+      });
+    }
   }, []);
 
   const login = async (user: string, password: string) => {
     try {
-      if (user === 'admin' && password === 'admin') {
+      if (user === 'admin' && password === '12345678') {
         setUser({
           id: 1,
           name: 'Bruno',
-          password,
+          email: 'admin@admin',
         });
 
-        console.log(user);
+        localStorage.setItem('@token:access', '123');
+        router.push('/clientes');
       }
-
-      router.push('/clientes');
     } catch (err) {
       console.log(err);
     }
