@@ -1,0 +1,38 @@
+export const clientsList = {
+  clients: [
+    {
+      id: 1,
+      name: 'Bruno',
+      email: 'admin@admin',
+      dateOfBirth: '01/01/2000',
+      cpf: '123.456.789-10',
+      phone: '(11) 99999-9999',
+      ranking: 1,
+      address: {
+        street: 'Rua Teste',
+        number: '123',
+        neighborhood: 'Bairro Teste',
+        city: 'Cidade Teste',
+        state: 'SP',
+        zipCode: '12345-678',
+      },
+    },
+    {
+      id: 2,
+      name: 'Danilo',
+      email: 'danilo@admin',
+      dateOfBirth: '01/01/2000',
+      cpf: '123.456.789-10',
+      phone: '(11) 99999-9999',
+      ranking: 1,
+      address: {
+        street: 'Rua Teste',
+        number: '123',
+        neighborhood: 'Bairro Teste',
+        city: 'Cidade Teste',
+        state: 'SP',
+        zipCode: '12345-678',
+      },
+    },
+  ],
+};
