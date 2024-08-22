@@ -21,6 +21,7 @@ interface IAuthProvider {
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
   login: (user: string, password: string) => Promise<void>;
+  logout: () => void;
 }
 
 interface ChildrenProps {
@@ -62,11 +63,18 @@ const AuthProvider = ({ children }: ChildrenProps) => {
     }
   };
 
+  const logout = () => {
+    setUser({} as IUser);
+    localStorage.removeItem('@token:access');
+    router.push('/');
+  };
+
   const authValues = useMemo(
     () => ({
       user,
       setUser,
       login,
+      logout,
     }),
     [user, login]
   );

@@ -1,7 +1,7 @@
 export default function ClientesPage() {
   return (
     <>
-      <h1>Clientes</h1>
+      <h1>Cadastro de clientes</h1>
     </>
   );
 }
