@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 import {
   createContext,
   ReactNode,
@@ -33,6 +33,7 @@ export const AuthContext = createContext({} as IAuthProvider);
 const AuthProvider = ({ children }: ChildrenProps) => {
   const [user, setUser] = useState<IUser>({} as IUser);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const token = localStorage.getItem('@token:access');
@@ -69,14 +70,24 @@ const AuthProvider = ({ children }: ChildrenProps) => {
     router.push('/');
   };
 
+  const isAuthenticated = !!user.id;
+
+  const publicRoutes = ['/'];
+
+  if (!isAuthenticated && !publicRoutes.includes(pathname)) {
+    redirect('/');
+  }
+
   const authValues = useMemo(
     () => ({
       user,
       setUser,
       login,
       logout,
+      isAuthenticated,
+      publicRoutes,
     }),
-    [user, login]
+    [user, login, isAuthenticated, publicRoutes]
   );
 
   return (
