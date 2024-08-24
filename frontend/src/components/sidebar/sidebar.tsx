@@ -8,10 +8,10 @@ export default function Sidebar() {
   return (
     <div className="h-full w-[300px] bg-blue-700 flex flex-col items-center pb-[2rem] px-2">
       <div className="py-4">
-        <h1 className="text-3xl font-bold text-white">Menu</h1>
+        <h1 className="text-3xl font-semibold text-white">Menu</h1>
       </div>
 
-      <nav className="pt-9 flex-1 space-y-3 w-full">
+      <nav className="pt-6 flex-1 space-y-3 w-full">
         <Link
           href="/cadastro"
           className="flex items-center gap-2 hover:bg-blue-900 transition duration-500 w-full p-2"

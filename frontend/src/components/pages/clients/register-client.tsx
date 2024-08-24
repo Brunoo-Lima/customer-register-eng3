@@ -9,6 +9,7 @@ import {
 } from '@/components/validations/register-client-schema';
 import Radio from '@/components/utilities/radio';
 import Input from '@/components/utilities/input';
+import DatePicker from '@/components/utilities/date-picker';
 
 export default function RegisterClient() {
   const {
@@ -73,6 +74,8 @@ export default function RegisterClient() {
               error={errors?.phone}
             />
           </div>
+
+          <DatePicker />
 
           <Input
             type="date"
