@@ -33,7 +33,7 @@ export default function LoginForm({ create }: ILoginProps) {
       <div className="flex flex-col">
         <label htmlFor="">Usuário</label>
         <input
-          className="text-black"
+          className="text-black rounded-md"
           type="text"
           placeholder="Digite seu nome"
           {...register('user')}
@@ -44,7 +44,7 @@ export default function LoginForm({ create }: ILoginProps) {
       <div className="flex flex-col">
         <label htmlFor="">Senha</label>
         <input
-          className="text-black"
+          className="text-black rounded-md"
           type="password"
           placeholder="Digite sua senha"
           {...register('password')}
