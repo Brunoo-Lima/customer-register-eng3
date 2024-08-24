@@ -2,7 +2,9 @@
 
 import { IClient } from '@/@types/client';
 import { EyeIcon, UserRoundPenIcon } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface ITableProps {
   clients: IClient[];
@@ -10,9 +12,14 @@ interface ITableProps {
 
 export default function Table({ clients }: ITableProps) {
   const router = useRouter();
+  const [data, setData] = useState<IClient>();
 
   const handleAlterClient = (id: number) => {
     router.push(`/clientes/${id}`);
+  };
+
+  const handleOpenInfoClient = (id: number) => {
+    router.push(`/clientes/informacoes/${id}`);
   };
 
   return (
@@ -35,7 +42,7 @@ export default function Table({ clients }: ITableProps) {
             <td className="p-2">{client.id}</td>
             <td className="p-2">{client.name}</td>
             <td className="p-2">{client.phone}</td>
-            <td className="p-2">{client.ranking}</td>
+            <td className="p-2">#{client.ranking}</td>
 
             <td className="p-2">
               <p
@@ -54,7 +61,9 @@ export default function Table({ clients }: ITableProps) {
             </td>
             <td className="p-2">
               <button>
-                <EyeIcon size={24} />
+                <Link href={`/clientes/informacoes/${client.id}`}>
+                  <EyeIcon size={24} />
+                </Link>
               </button>
             </td>
           </tr>

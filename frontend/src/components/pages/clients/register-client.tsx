@@ -51,10 +51,10 @@ export default function RegisterClient() {
 
           <div className="grid md:grid-cols-2 md:gap-4 items-start">
             <div>
-              <p className="block text-sm font-medium text-whit">
+              <p className="block text-sm font-medium text-white">
                 Tipo do telefone:{' '}
               </p>
-              <Radio label="Móvel" {...register('phone')} />
+              <Radio label="Celular" {...register('phone')} />
               <Radio label="Fixo" {...register('phone')} />
 
               {errors?.typePhone && (
@@ -82,7 +82,7 @@ export default function RegisterClient() {
           />
 
           <div className="flex flex-col">
-            <label htmlFor="">Gênero</label>
+            <p className="block text-sm font-medium text-white">Gênero</p>
             <Radio label="Masculino" {...register('gender')} />
             <Radio label="Feminino" {...register('gender')} />
 

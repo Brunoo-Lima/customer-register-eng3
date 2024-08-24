@@ -47,7 +47,7 @@ export default function AlterClient() {
       setValue('observation', client.observation);
       setValue('status', client.status);
     }
-  });
+  }, [id, setValue]);
 
   const onSubmit: SubmitHandler<IRegisterClientForm> = () => {
     router.replace('/clientes');

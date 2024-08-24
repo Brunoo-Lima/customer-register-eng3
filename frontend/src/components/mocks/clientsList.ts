@@ -28,7 +28,7 @@ export const clientsList = [
     email: 'danilo@admin',
     dateOfBirth: '01/01/2000',
     cpf: '123.456.789-10',
-    typePhone: 'Celular',
+    typePhone: 'Fixo',
     phone: '(11) 99999-9999',
     gender: 'Masculino',
     ranking: 2,
