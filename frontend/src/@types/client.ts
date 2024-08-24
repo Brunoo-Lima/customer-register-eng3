@@ -5,6 +5,8 @@ export interface IAddress {
   city: string;
   state: string;
   zipCode: string;
+  publicPlace: string;
+  country: string;
 }
 
 export interface IClient {
@@ -13,6 +15,7 @@ export interface IClient {
   email: string;
   dateOfBirth: string;
   cpf: string;
+  typePhone: string;
   phone: string;
   ranking: number;
   gender: string;

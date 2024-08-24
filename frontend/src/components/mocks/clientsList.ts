@@ -5,6 +5,7 @@ export const clientsList = [
     email: 'admin@admin',
     dateOfBirth: '01/01/2000',
     cpf: '123.456.789-10',
+    typePhone: 'Celular',
     phone: '(11) 99999-9999',
     gender: 'Masculino',
     ranking: 1,
@@ -17,6 +18,8 @@ export const clientsList = [
       city: 'Cidade Teste',
       state: 'SP',
       zipCode: '12345-678',
+      country: 'Brasil',
+      publicPlace: 'Casa',
     },
   },
   {
@@ -25,6 +28,7 @@ export const clientsList = [
     email: 'danilo@admin',
     dateOfBirth: '01/01/2000',
     cpf: '123.456.789-10',
+    typePhone: 'Celular',
     phone: '(11) 99999-9999',
     gender: 'Masculino',
     ranking: 2,
@@ -37,6 +41,8 @@ export const clientsList = [
       city: 'Cidade Teste',
       state: 'SP',
       zipCode: '12345-678',
+      country: 'Brasil',
+      publicPlace: 'Apartamento',
     },
   },
 ];

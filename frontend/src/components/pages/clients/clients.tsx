@@ -9,14 +9,14 @@ export default function Clients() {
         <div className="flex justify-between items-center">
           <div>
             <div className="relative">
-              <div className="absolute top-1 left-1 rounded-full bg-orange-500 size-5 flex items-center justify-center">
+              <div className="absolute top-0.5 left-0.5 rounded-full bg-blue-900 size-6 flex items-center justify-center">
                 <SearchIcon size={16} color="#fff" />
               </div>
 
               <input
                 type="text"
                 placeholder="Digite o nome do cliente"
-                className="ps-7 border-[1px] border-transparent rounded-lg h-7 text-sm text-black outline-none focus-visible:border-orange-500"
+                className="ps-7 pe-2 border-[1px] border-transparent rounded-lg h-7 text-sm text-black outline-none focus-visible:border-blue-500"
               />
             </div>
           </div>

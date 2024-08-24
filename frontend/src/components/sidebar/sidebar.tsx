@@ -4,8 +4,9 @@ import Link from 'next/link';
 
 export default function Sidebar() {
   const { logout } = useAuth();
+
   return (
-    <div className="h-full w-[300px] bg-amber-500 flex flex-col items-center pb-[2rem] px-2">
+    <div className="h-full w-[300px] bg-blue-700 flex flex-col items-center pb-[2rem] px-2">
       <div className="py-4">
         <h1 className="text-3xl font-bold text-white">Menu</h1>
       </div>
@@ -13,7 +14,7 @@ export default function Sidebar() {
       <nav className="pt-9 flex-1 space-y-3 w-full">
         <Link
           href="/cadastro"
-          className="flex items-center gap-2 hover:bg-orange-800 transition duration-500 w-full p-2"
+          className="flex items-center gap-2 hover:bg-blue-900 transition duration-500 w-full p-2"
         >
           <UserRoundPlusIcon size={16} />
           Cadastro de clientes
@@ -21,7 +22,7 @@ export default function Sidebar() {
 
         <Link
           href="/clientes"
-          className="flex items-center gap-2 hover:bg-orange-800 transition duration-500 w-full p-2"
+          className="flex items-center gap-2 hover:bg-blue-900 transition duration-500 w-full p-2"
         >
           <UsersRoundIcon size={16} />
           Lista de clientes
@@ -30,7 +31,7 @@ export default function Sidebar() {
 
       <button
         onClick={logout}
-        className="flex items-center gap-2 hover:bg-orange-800 transition duration-500 w-full p-2"
+        className="flex items-center gap-2 hover:bg-blue-900 transition duration-500 w-full p-2"
       >
         <LogOutIcon size={24} />
         <p>Sair</p>

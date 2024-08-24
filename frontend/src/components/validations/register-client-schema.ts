@@ -12,6 +12,7 @@ export const RegisterClientSchema = yup.object({
   gender: yup.string().required('Gênero é obrigatório'),
   dateOfBirth: yup.string().required('Data de nascimento é obrigatório'),
   neighborhood: yup.string().required('Bairro é obrigatório'),
+  publicPlace: yup.string().required('Logradouro é obrigatório'),
   street: yup.string().required('Rua é obrigatório'),
   number: yup.string().required('Número é obrigatório'),
   zipCode: yup.string().required('CEP é obrigatório'),
@@ -19,4 +20,5 @@ export const RegisterClientSchema = yup.object({
   state: yup.string().required('Estado é obrigatório'),
   country: yup.string().required('País é obrigatório'),
   observation: yup.string().optional(),
+  status: yup.string().default('Ativo'),
 });

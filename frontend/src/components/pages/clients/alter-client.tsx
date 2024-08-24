@@ -2,27 +2,59 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Input from '@/components/utilities/input';
 import Textarea from '@/components/utilities/textarea';
 import {
   IRegisterClientForm,
   RegisterClientSchema,
 } from '@/components/validations/register-client-schema';
 import Radio from '@/components/utilities/radio';
-import Input from '@/components/utilities/input';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { clientsList } from '@/components/mocks/clientsList';
 
-export default function RegisterClient() {
+export default function AlterClient() {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<IRegisterClientForm>({
     resolver: yupResolver(RegisterClientSchema),
   });
+  const router = useRouter();
+  const { id } = useParams();
 
-  const onSubmit: SubmitHandler<IRegisterClientForm> = () => {};
+  useEffect(() => {
+    const client = clientsList.find((client) => client.id === Number(id));
 
-  const clearFormFields = () => {
+    if (client) {
+      setValue('name', client.name);
+      setValue('cpf', client.cpf);
+      setValue('typePhone', client.typePhone);
+      setValue('phone', client.phone);
+      setValue('dateOfBirth', client.dateOfBirth);
+      setValue('gender', client.gender);
+      setValue('neighborhood', client.address.neighborhood);
+      setValue('street', client.address.street);
+      setValue('publicPlace', client.address.publicPlace);
+      setValue('number', client.address.number.toString());
+      setValue('zipCode', client.address.zipCode);
+      setValue('city', client.address.city);
+      setValue('state', client.address.state);
+      setValue('country', client.address.country);
+      setValue('observation', client.observation);
+      setValue('status', client.status);
+    }
+  });
+
+  const onSubmit: SubmitHandler<IRegisterClientForm> = () => {
+    router.replace('/clientes');
+  };
+
+  const cancelAlterFormsFields = () => {
+    router.back();
     reset();
   };
 
@@ -51,11 +83,15 @@ export default function RegisterClient() {
 
           <div className="grid md:grid-cols-2 md:gap-4 items-start">
             <div>
-              <p className="block text-sm font-medium text-whit">
+              <p className="block text-sm font-medium text-white">
                 Tipo do telefone:{' '}
               </p>
-              <Radio label="Móvel" {...register('phone')} />
-              <Radio label="Fixo" {...register('phone')} />
+              <Radio
+                label="Celular"
+                value="Celular"
+                {...register('typePhone')}
+              />
+              <Radio label="Fixo" value="Fixo" {...register('typePhone')} />
 
               {errors?.typePhone && (
                 <span className="text-sm text-red-600">
@@ -68,7 +104,7 @@ export default function RegisterClient() {
               type="tel"
               label="Telefone"
               placeholder="(00) 0000-0000"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
               {...register('phone')}
               error={errors?.phone}
             />
@@ -82,15 +118,27 @@ export default function RegisterClient() {
           />
 
           <div className="flex flex-col">
-            <label htmlFor="">Gênero</label>
-            <Radio label="Masculino" {...register('gender')} />
-            <Radio label="Feminino" {...register('gender')} />
+            <p className="block text-sm font-medium text-white">Gênero</p>
+            <Radio
+              label="Masculino"
+              value="Masculino"
+              {...register('gender')}
+            />
+            <Radio label="Feminino" value="Feminino" {...register('gender')} />
 
             {errors?.gender && (
               <span className="text-red-600 text-sm">
                 {errors.gender.message}
               </span>
             )}
+          </div>
+
+          <div>
+            <p className="block text-sm font-medium text-white">
+              Status do cliente
+            </p>
+            <Radio label="Ativo" value="Ativo" {...register('status')} />
+            <Radio label="Inativo" value="Inativo" {...register('status')} />
           </div>
         </div>
 
@@ -175,17 +223,17 @@ export default function RegisterClient() {
       <div className="flex gap-4 justify-center">
         <button
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm max-w-fit px-5 py-2.5 text-center border-transparent"
+          className="text-white bg-blue-700 hover:bg-blue-800 outline-none font-medium rounded-lg text-sm max-w-fit px-5 py-2.5 text-center border-transparent"
         >
-          Adicionar cliente
+          Salvar alteração
         </button>
 
         <button
           type="button"
-          onClick={clearFormFields}
-          className="text-blue-700 bg-white border-[1px] border-blue-700 font-medium rounded-lg text-sm max-w-fit px-5 py-2.5 text-center"
+          onClick={cancelAlterFormsFields}
+          className="text-blue-700 bg-white outline-none border-[1px] border-blue-700 font-medium rounded-lg text-sm max-w-fit px-5 py-2.5 text-center"
         >
-          Limpar campos
+          Cancelar
         </button>
       </div>
     </form>

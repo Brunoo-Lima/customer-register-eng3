@@ -9,7 +9,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: FieldError | undefined;
 }
 
-const InputRegister = forwardRef<HTMLInputElement, IInputProps>(
+const Input = forwardRef<HTMLInputElement, IInputProps>(
   ({ type, placeholder, label, error, ...rest }, ref) => {
     return (
       <div>
@@ -35,4 +35,4 @@ const InputRegister = forwardRef<HTMLInputElement, IInputProps>(
   }
 );
 
-export default InputRegister;
+export default Input;

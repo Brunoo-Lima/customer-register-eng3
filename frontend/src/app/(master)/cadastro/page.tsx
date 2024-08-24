@@ -1,6 +1,6 @@
 import RegisterClient from '@/components/pages/clients/register-client';
 
-export default function CadastroPage() {
+export default function RegisterPage() {
   return (
     <>
       <header className="py-6">

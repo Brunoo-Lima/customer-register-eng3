@@ -1,6 +1,6 @@
 import Clients from '@/components/pages/clients/clients';
 
-export default function ClientesPage() {
+export default function ClientsPage() {
   return (
     <>
       <header className="py-6">
