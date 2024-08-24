@@ -15,6 +15,8 @@ export interface IClient {
   cpf: string;
   phone: string;
   ranking: number;
+  gender: string;
   status: 'active' | 'inactive' | string;
   address: IAddress;
+  observation?: string;
 }

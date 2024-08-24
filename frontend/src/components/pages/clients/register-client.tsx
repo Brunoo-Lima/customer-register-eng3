@@ -1,51 +1,83 @@
+'use client';
+
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import InputRegister from '@/components/utilities/input-register';
 import Textarea from '@/components/utilities/textarea';
+import {
+  IRegisterClientForm,
+  RegisterClientSchema,
+} from '@/components/validations/register-client-schema';
+import Radio from '@/components/utilities/radio';
 
 export default function RegisterClient() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IRegisterClientForm>({
+    resolver: yupResolver(RegisterClientSchema),
+  });
+
+  const onSubmit: SubmitHandler<IRegisterClientForm> = () => {};
+
   return (
-    <form className="w-full flex flex-col justify-center gap-8 my-8">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full flex flex-col justify-center gap-8 my-8"
+    >
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-4">
           <InputRegister
             type="text"
             label="Nome completo"
             placeholder="Digite o nome completo"
+            error={errors?.name}
+            {...register('name')}
           />
-          <InputRegister type="text" label="CPF" placeholder="000.000.000-00" />
 
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="space-y-2">
-              <div className="flex gap-2">
-                <input type="checkbox" />
-                <label htmlFor="">Móvel</label>
+          <InputRegister
+            type="text"
+            label="CPF"
+            placeholder="000.000.000-00"
+            {...register('cpf')}
+            error={errors?.cpf}
+          />
 
-                <input type="checkbox" />
-                <label htmlFor="">Fixo</label>
-              </div>
+          <div className="grid md:grid-cols-2 md:gap-6 items-center">
+            <div>
+              <p>Tipo do telefone: </p>
+              <Radio label="Móvel" {...register('phone')} />
+              <Radio label="Fixo" {...register('phone')} />
 
-              <InputRegister
-                type="tel"
-                label="Telefone"
-                placeholder=" "
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              />
+              {errors?.typePhone && (
+                <span className="text-sm text-red-600">
+                  {errors.typePhone.message}
+                </span>
+              )}
             </div>
+
+            <InputRegister
+              type="tel"
+              label="Telefone"
+              placeholder="(00) 0000-0000"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              {...register('phone')}
+              error={errors?.phone}
+            />
           </div>
+
           <InputRegister
             type="date"
             label="Data de nascimento"
             placeholder="dd/MM/yyyy"
+            {...register('dateOfBirth')}
           />
 
           <div className="flex flex-col">
             <label htmlFor="">Gênero</label>
-            <div className="flex gap-2">
-              <input type="checkbox" />
-              <label htmlFor="">Masculino</label>
-
-              <input type="checkbox" />
-              <label htmlFor="">Feminino</label>
-            </div>
+            <Radio label="Masculino" {...register('gender')} />
+            <Radio label="Feminino" {...register('gender')} />
           </div>
         </div>
 
@@ -54,12 +86,16 @@ export default function RegisterClient() {
             type="text"
             label="Bairro"
             placeholder="Digite o nome do bairro"
+            {...register('neighborhood')}
+            error={errors?.neighborhood}
           />
 
           <InputRegister
             type="text"
             label="Rua"
             placeholder="Digite o nome da rua"
+            {...register('street')}
+            error={errors?.street}
           />
 
           <div className="grid md:grid-cols-2 md:gap-6">
@@ -72,14 +108,24 @@ export default function RegisterClient() {
               type="number"
               label="Número"
               placeholder="Digite o número"
+              {...register('number')}
+              error={errors?.number}
             />
           </div>
           <div className="grid md:grid-cols-2 md:gap-6">
-            <InputRegister type="text" label="CEP" placeholder="00000-000" />
+            <InputRegister
+              type="text"
+              label="CEP"
+              placeholder="00000-000"
+              {...register('zipCode')}
+              error={errors?.zipCode}
+            />
             <InputRegister
               type="text"
               label="Cidade"
               placeholder="Digite a cidade"
+              {...register('city')}
+              error={errors?.city}
             />
           </div>
 
@@ -88,11 +134,15 @@ export default function RegisterClient() {
               type="text"
               label="Estado"
               placeholder="Digite o estado"
+              {...register('state')}
+              error={errors?.state}
             />
             <InputRegister
               type="text"
               label="País"
               placeholder="Digite o país"
+              {...register('country')}
+              error={errors?.country}
             />
           </div>
 
@@ -100,6 +150,8 @@ export default function RegisterClient() {
             <Textarea
               label="Observações"
               placeholder="Digite sua observação (opcional)"
+              {...register('observation')}
+              error={errors?.observation}
             />
           </div>
         </div>

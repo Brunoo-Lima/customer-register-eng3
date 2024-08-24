@@ -6,8 +6,10 @@ export const clientsList = [
     dateOfBirth: '01/01/2000',
     cpf: '123.456.789-10',
     phone: '(11) 99999-9999',
+    gender: 'Masculino',
     ranking: 1,
     status: 'Ativo',
+    observation: '',
     address: {
       street: 'Rua Teste',
       number: '123',
@@ -24,8 +26,10 @@ export const clientsList = [
     dateOfBirth: '01/01/2000',
     cpf: '123.456.789-10',
     phone: '(11) 99999-9999',
+    gender: 'Masculino',
     ranking: 2,
     status: 'Inativo',
+    observation: '',
     address: {
       street: 'Rua Teste',
       number: '123',
