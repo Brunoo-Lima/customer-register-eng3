@@ -1,15 +1,37 @@
-import { LogOutIcon } from 'lucide-react';
+import { LogOutIcon, UserRoundPlusIcon, UsersRoundIcon } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import Link from 'next/link';
 
 export default function Sidebar() {
   const { logout } = useAuth();
   return (
-    <div className="h-full w-[400px] bg-amber-500 flex flex-col items-center py-[4rem] pb-[2rem]">
-      <div className="flex-1">
-        <h1 className="text-3xl font-bold text-white">Filtragem</h1>
+    <div className="h-full w-[300px] bg-amber-500 flex flex-col items-center pb-[2rem] px-2">
+      <div className="py-4">
+        <h1 className="text-3xl font-bold text-white">Menu</h1>
       </div>
 
-      <button onClick={logout} className="flex items-center gap-2">
+      <nav className="pt-9 flex-1 space-y-3 w-full">
+        <Link
+          href="/cadastro"
+          className="flex items-center gap-2 hover:bg-orange-800 transition duration-500 w-full p-2"
+        >
+          <UserRoundPlusIcon size={16} />
+          Cadastro de clientes
+        </Link>
+
+        <Link
+          href="/clientes"
+          className="flex items-center gap-2 hover:bg-orange-800 transition duration-500 w-full p-2"
+        >
+          <UsersRoundIcon size={16} />
+          Lista de clientes
+        </Link>
+      </nav>
+
+      <button
+        onClick={logout}
+        className="flex items-center gap-2 hover:bg-orange-800 transition duration-500 w-full p-2"
+      >
         <LogOutIcon size={24} />
         <p>Sair</p>
       </button>
