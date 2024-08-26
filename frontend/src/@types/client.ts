@@ -9,10 +9,18 @@ export interface IAddress {
   country: string;
 }
 
+export interface IAddressBilling extends IAddress {}
+
+export interface IAddressDelivery extends IAddress {
+  name: string;
+}
+
 export interface IClient {
   id: number;
   name: string;
   email: string;
+  password: string;
+  confirmPassword: string;
   dateOfBirth: string;
   cpf: string;
   typePhone: string;
@@ -22,4 +30,6 @@ export interface IClient {
   status: 'active' | 'inactive' | string;
   address: IAddress;
   observation?: string;
+  addressDelivery: IAddressDelivery;
+  addressBilling: IAddressBilling;
 }

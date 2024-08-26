@@ -1,4 +1,4 @@
-import RegisterClient from '@/components/pages/clients/register-client';
+import RegisterClient from '@/components/pages/clients/forms/register/register-client';
 
 export default function RegisterPage() {
   return (

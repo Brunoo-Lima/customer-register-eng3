@@ -14,7 +14,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>(
       <div>
         <label
           htmlFor={label}
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-white"
         >
           {label}
         </label>

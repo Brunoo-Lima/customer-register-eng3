@@ -36,15 +36,15 @@ export default function AlterClient() {
       setValue('phone', client.phone);
       setValue('dateOfBirth', client.dateOfBirth);
       setValue('gender', client.gender);
-      setValue('neighborhood', client.address.neighborhood);
-      setValue('street', client.address.street);
-      setValue('publicPlace', client.address.publicPlace);
-      setValue('number', client.address.number.toString());
-      setValue('zipCode', client.address.zipCode);
-      setValue('city', client.address.city);
-      setValue('state', client.address.state);
-      setValue('country', client.address.country);
-      setValue('observation', client.observation);
+      setValue('residentialAddress.neighborhood', client.address.neighborhood);
+      setValue('residentialAddress.street', client.address.street);
+      setValue('residentialAddress.publicPlace', client.address.publicPlace);
+      setValue('residentialAddress.number', client.address.number.toString());
+      setValue('residentialAddress.zipCode', client.address.zipCode);
+      setValue('residentialAddress.city', client.address.city);
+      setValue('residentialAddress.state', client.address.state);
+      setValue('residentialAddress.country', client.address.country);
+      setValue('residentialAddress.observation', client.observation);
       setValue('status', client.status);
     }
   }, [id, setValue]);
@@ -144,78 +144,108 @@ export default function AlterClient() {
 
         <div className="space-y-4">
           <Input
-            type="text"
-            label="Bairro"
-            placeholder="Digite o nome do bairro"
-            {...register('neighborhood')}
-            error={errors?.neighborhood}
+            type="email"
+            label="E-mail"
+            placeholder="Digite o e-mail"
+            {...register('email')}
+            error={errors?.email}
           />
 
           <Input
-            type="text"
-            label="Rua"
-            placeholder="Digite o nome da rua"
-            {...register('street')}
-            error={errors?.street}
+            type="password"
+            label="Senha"
+            placeholder="Digite a senha"
+            {...register('password')}
+            error={errors?.password}
           />
 
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <Input
-              type="text"
-              label="Logradouro"
-              placeholder="Digite o logradouro"
-              {...register('publicPlace')}
-              error={errors?.publicPlace}
-            />
-            <Input
-              type="number"
-              label="Número"
-              placeholder="Digite o número"
-              {...register('number')}
-              error={errors?.number}
-            />
-          </div>
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <Input
-              type="text"
-              label="CEP"
-              placeholder="00000-000"
-              {...register('zipCode')}
-              error={errors?.zipCode}
-            />
-            <Input
-              type="text"
-              label="Cidade"
-              placeholder="Digite a cidade"
-              {...register('city')}
-              error={errors?.city}
-            />
-          </div>
+          <Input
+            type="password"
+            label="Confirmação da senha"
+            placeholder="Digite a senha novamente"
+            {...register('confirmPassword')}
+            error={errors?.confirmPassword}
+          />
 
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <Input
-              type="text"
-              label="Estado"
-              placeholder="Digite o estado"
-              {...register('state')}
-              error={errors?.state}
-            />
-            <Input
-              type="text"
-              label="País"
-              placeholder="Digite o país"
-              {...register('country')}
-              error={errors?.country}
-            />
-          </div>
+          <div className="space-y-4">
+            <div className="my-2">
+              <h3 className="text-xl font-semibold">Endereço</h3>
+            </div>
 
-          <div>
-            <Textarea
-              label="Observações"
-              placeholder="Digite sua observação (opcional)"
-              {...register('observation')}
-              error={errors?.observation}
+            <Input
+              type="text"
+              label="Bairro"
+              placeholder="Digite o nome do bairro"
+              {...register('residentialAddress.neighborhood')}
+              error={errors?.residentialAddress?.neighborhood}
             />
+
+            <Input
+              type="text"
+              label="Rua"
+              placeholder="Digite o nome da rua"
+              {...register('residentialAddress.street')}
+              error={errors?.residentialAddress?.street}
+            />
+
+            <div className="grid md:grid-cols-2 md:gap-6">
+              <Input
+                type="text"
+                label="Logradouro"
+                placeholder="Digite o logradouro"
+                {...register('residentialAddress.publicPlace')}
+                error={errors?.residentialAddress?.publicPlace}
+              />
+              <Input
+                type="number"
+                label="Número"
+                placeholder="Digite o número"
+                {...register('residentialAddress.number')}
+                error={errors?.residentialAddress?.number}
+              />
+            </div>
+            <div className="grid md:grid-cols-2 md:gap-6">
+              <Input
+                type="text"
+                label="CEP"
+                placeholder="00000-000"
+                {...register('residentialAddress.zipCode')}
+                error={errors?.residentialAddress?.zipCode}
+              />
+              <Input
+                type="text"
+                label="Cidade"
+                placeholder="Digite a cidade"
+                {...register('residentialAddress.city')}
+                error={errors?.residentialAddress?.city}
+              />
+            </div>
+
+            <div className="grid md:grid-cols-2 md:gap-6">
+              <Input
+                type="text"
+                label="Estado"
+                placeholder="Digite o estado"
+                {...register('residentialAddress.state')}
+                error={errors?.residentialAddress?.state}
+              />
+              <Input
+                type="text"
+                label="País"
+                placeholder="Digite o país"
+                {...register('residentialAddress.country')}
+                error={errors?.residentialAddress?.country}
+              />
+            </div>
+
+            <div>
+              <Textarea
+                label="Observações"
+                placeholder="Digite sua observação (opcional)"
+                {...register('residentialAddress.observation')}
+                error={errors?.residentialAddress?.observation}
+              />
+            </div>
           </div>
         </div>
       </div>

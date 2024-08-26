@@ -1,4 +1,4 @@
-import AlterClient from '@/components/pages/clients/alter-client';
+import AlterClient from '@/components/pages/clients/forms/alter/alter-client';
 
 export default function AlterClientsPage() {
   return (
