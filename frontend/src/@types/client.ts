@@ -30,6 +30,6 @@ export interface IClient {
   status: 'active' | 'inactive' | string;
   address: IAddress;
   observation?: string;
-  addressDelivery: IAddressDelivery;
-  addressBilling: IAddressBilling;
+  addressDelivery: IAddressDelivery[];
+  addressBilling: IAddressBilling[];
 }

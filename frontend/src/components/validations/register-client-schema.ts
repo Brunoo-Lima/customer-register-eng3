@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { addressSchema } from './address-schema';
+import { addressDeliverySchema, addressSchema } from './address-schema';
 
 export type IRegisterClientForm = yup.InferType<typeof RegisterClientSchema>;
 
@@ -13,8 +13,14 @@ export const RegisterClientSchema = yup.object({
   phone: yup.string().required('Telefone é obrigatório'),
   gender: yup.string().required('Gênero é obrigatório'),
   residentialAddress: addressSchema,
-  deliveryAddress: addressSchema,
-  billingAddress: addressSchema,
+  deliveryAddress: yup
+    .array()
+    .of(addressDeliverySchema)
+    .min(1, 'É necessário pelo menos um endereço de entrega'),
+  billingAddress: yup
+    .array()
+    .of(addressSchema)
+    .min(1, 'É necessário pelo menos um endereço de cobrança'),
   status: yup.string().default('Ativo'),
   email: yup.string().email().required('E-mail é obrigatório'),
   password: yup
@@ -30,6 +36,6 @@ export const RegisterClientSchema = yup.object({
     ),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('password')], 'Senhas nãio iguais')
+    .oneOf([yup.ref('password')], 'Senhas não são iguais')
     .required('Confirmação de senha é obrigatório'),
 });

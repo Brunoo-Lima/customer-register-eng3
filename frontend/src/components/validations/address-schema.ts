@@ -11,3 +11,11 @@ export const addressSchema = yup.object({
   country: yup.string().required('País é obrigatório'),
   observation: yup.string().optional(),
 });
+
+export type IAddressDeliverySchema = yup.InferType<
+  typeof addressDeliverySchema
+>;
+
+export const addressDeliverySchema = addressSchema.shape({
+  name: yup.string().required('Nome é obrigatório'),
+});
