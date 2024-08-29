@@ -14,7 +14,7 @@ import AddressDelivery from './address-delivery';
 import { useState } from 'react';
 import AddressBilling from './address-billing';
 import CreditCard from './credit-card';
-import { IAddressDelivery } from '@/@types/client';
+import { IAddressBilling, IAddressDelivery } from '@/@types/client';
 import { XIcon } from 'lucide-react';
 import { ICreditCard } from '@/@types/credit-card';
 
@@ -38,14 +38,26 @@ export default function RegisterClient() {
   const [isAddAddressDelivery, setIsAddAddressDelivery] = useState(false);
   const [isAddAddressBilling, setIsAddAddressBilling] = useState(false);
   const [isAddCreditCard, setIsAddCreditCard] = useState(false);
-  const [addressDelivery, setAddressDelivery] = useState();
   const [creditCardList, setCreditCardList] = useState<ICreditCard[]>([]);
   const [activeCreditCard, setActiveCreditCard] = useState<number | null>(null);
+  const [addressBilling, setAddressBilling] = useState<IAddressBilling[]>([]);
+  const [activeAddress, setActiveAddress] = useState<number | null>(null);
+  const [addressDelivery, setAddressDelivery] = useState<IAddressDelivery[]>(
+    []
+  );
 
   const onSubmit: SubmitHandler<IRegisterClientForm> = () => {};
 
   const clearFormFields = () => {
     reset();
+  };
+
+  const handleAddressClick = (index: number) => {
+    setActiveAddress(activeAddress === index ? null : index);
+  };
+
+  const handleDeleteAddressBilling = (id: number) => {
+    setAddressBilling(addressBilling.filter((item) => item.id !== id));
   };
 
   const handleCreditCardClick = (index: number) => {
@@ -260,7 +272,44 @@ export default function RegisterClient() {
               </h3>
 
               <div>
-                {isAddAddressBilling && <AddressBilling />}
+                <ul>
+                  {addressBilling.map((address, index) => (
+                    <li key={index} className="mb-2">
+                      <div
+                        className="bg-blue-600 p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center"
+                        onClick={() => handleAddressClick(index)}
+                      >
+                        {`Endereço de cobrança ${index + 1}`}
+
+                        <button
+                          className="z-10"
+                          type="button"
+                          onClick={() => handleDeleteAddressBilling(address.id)}
+                        >
+                          <XIcon size={18} color="#fff" />
+                        </button>
+                      </div>
+                      {activeAddress === index && (
+                        <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
+                          <p>Rua: {address.street}</p>
+                          <p>Bairro: {address.neighborhood}</p>
+                          <p>CEP: {address.zipCode}</p>
+                          <p>Cidade: {address.city}</p>
+                          <p>Estado: {address.state}</p>
+                          <p>País: {address.country}</p>
+                          <p>Observação: {address.observation}</p>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+
+                {isAddAddressBilling && (
+                  <AddressBilling
+                    addressBilling={addressBilling}
+                    setAddressBilling={setAddressBilling}
+                  />
+                )}
 
                 <button
                   type="button"

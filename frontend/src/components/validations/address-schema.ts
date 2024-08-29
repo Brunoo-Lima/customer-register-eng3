@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+export type IAddressSchema = yup.InferType<typeof addressSchema>;
+
 export const addressSchema = yup.object({
   neighborhood: yup.string().required('Bairro é obrigatório'),
   publicPlace: yup.string().required('Logradouro é obrigatório'),

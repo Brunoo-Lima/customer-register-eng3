@@ -1,4 +1,5 @@
 export interface IAddress {
+  id: number;
   street: string;
   number: string;
   neighborhood: string;
@@ -9,7 +10,9 @@ export interface IAddress {
   country: string;
 }
 
-export interface IAddressBilling extends IAddress {}
+export interface IAddressBilling extends IAddress {
+  observation?: string;
+}
 
 export interface IAddressDelivery extends IAddress {
   name: string;

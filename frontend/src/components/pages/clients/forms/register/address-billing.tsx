@@ -1,68 +1,45 @@
+import { IAddressBilling } from '@/@types/client';
 import Input from '@/components/utilities/input';
 import Textarea from '@/components/utilities/textarea';
-import { useState } from 'react';
+import {
+  addressSchema,
+  IAddressSchema,
+} from '@/components/validations/address-schema';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-interface IAddressBilling {
-  neighborhood: string;
-  street: string;
-  publicPlace: string;
-  number: string;
-  zipCode: string;
-  city: string;
-  state: string;
-  country: string;
-  observation?: string;
+interface IAddressBillingProps {
+  addressBilling: IAddressBilling[];
+  setAddressBilling: React.Dispatch<React.SetStateAction<IAddressBilling[]>>;
 }
 
-export default function AddressBilling() {
-  const [savedAddress, setSavedAddress] = useState<IAddressBilling[]>([]);
-  const [activeAddress, setActiveAddress] = useState<number | null>(null);
-
+export default function AddressBilling({
+  addressBilling,
+  setAddressBilling,
+}: IAddressBillingProps) {
   const {
     register,
     formState: { errors },
     reset,
     getValues,
-  } = useForm<IAddressBilling>();
+  } = useForm<IAddressSchema>({
+    resolver: yupResolver(addressSchema),
+  });
 
   const handleAddAddress = () => {
     const newAddress = getValues();
-    setSavedAddress([...savedAddress, newAddress]);
-    reset();
-  };
 
-  const handleAddressClick = (index: number) => {
-    setActiveAddress(activeAddress === index ? null : index);
+    const addressBillingWithId: IAddressBilling = {
+      id: Math.ceil(Math.random() * 10000),
+      ...newAddress,
+    };
+
+    setAddressBilling([...addressBilling, addressBillingWithId]);
+    reset();
   };
 
   return (
     <div>
-      <ul>
-        {savedAddress.map((address, index) => (
-          <li key={index} className="mb-2">
-            <button
-              className="bg-blue-600 p-2 w-full text-left rounded-md"
-              type="button"
-              onClick={() => handleAddressClick(index)}
-            >
-              {`Endereço de cobrança ${index + 1}`}
-            </button>
-            {activeAddress === index && (
-              <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
-                <p>Rua: {address.street}</p>
-                <p>Bairro: {address.neighborhood}</p>
-                <p>CEP: {address.zipCode}</p>
-                <p>Cidade: {address.city}</p>
-                <p>Estado: {address.state}</p>
-                <p>País: {address.country}</p>
-                <p>Observação: {address.observation}</p>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-
       <div className="space-y-4 mt-2">
         <div className="space-y-4">
           <Input
