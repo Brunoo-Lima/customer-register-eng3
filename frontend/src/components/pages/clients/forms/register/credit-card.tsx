@@ -1,3 +1,4 @@
+import { ICreditCard } from '@/@types/credit-card';
 import { selectFlagCrediCard } from '@/components/mocks/select';
 import Input from '@/components/utilities/input';
 import SelectForm from '@/components/utilities/select';
@@ -6,69 +7,59 @@ import {
   ICreditCardSchema,
 } from '@/components/validations/credit-card-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
-interface ICreditCard {
-  number: number;
-  cvv: number;
-  nameCreditCard: string;
-  dateExpired: string;
-  flag: string;
+interface ICreditCardProps {
+  creditCardList: ICreditCard[];
+  setCreditCardList: React.Dispatch<React.SetStateAction<ICreditCard[]>>;
 }
 
-export default function CreditCard() {
-  const [creditCardList, setCreditCardList] = useState<ICreditCard[]>([]);
-  const [activeCreditCard, setActiveCreditCard] = useState<number | null>(null);
-
+export default function CreditCard({
+  creditCardList,
+  setCreditCardList,
+}: ICreditCardProps) {
   const {
     register,
+    control,
     formState: { errors },
     reset,
+    handleSubmit,
     getValues,
   } = useForm<ICreditCardSchema>({
     resolver: yupResolver(creditCardSchema),
   });
 
-  const handleAddCreditCard = () => {
+  const handleAddCreditCard = handleSubmit(() => {
     const newCreditCard = getValues();
-    setCreditCardList([...creditCardList, newCreditCard]);
-    reset();
-  };
 
-  const handleCreditCardClick = (index: number) => {
-    setActiveCreditCard(activeCreditCard === index ? null : index);
-  };
+    const creditCardWithID: ICreditCard = {
+      id: Math.ceil(Math.random() * 10000),
+      ...newCreditCard,
+    };
+
+    setCreditCardList([...creditCardList, creditCardWithID]);
+    reset();
+  });
 
   return (
     <div>
-      {creditCardList.map((credit, index) => (
-        <li key={index} className="mb-2 list-none">
-          <button
-            className="bg-blue-600 p-2 w-full text-left rounded-md"
-            type="button"
-            onClick={() => handleCreditCardClick(index)}
-          >
-            {`Cartão ${index + 1}`}
-          </button>
-          {activeCreditCard === index && (
-            <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
-              <p>Bandeira do cartão: {credit.flag}</p>
-              <p>Número do cartão: {credit.number}</p>
-              <p>CVV: {credit.cvv}</p>
-              <p>Nome impresso: {credit.nameCreditCard}</p>
-              <p>Data de validade: {credit.dateExpired}</p>
-            </div>
-          )}
-        </li>
-      ))}
-
-      {/* TOOD: VERIFICAR O PQ DO SELECT NAO TA PEGANDO O DADO SELECIONADO */}
       <div className="space-y-4 mb-4">
-        <SelectForm
-          label="Bandeira"
-          options={selectFlagCrediCard}
-          {...register('flag')}
+        <Controller
+          name="flag"
+          control={control}
+          render={({ field }) => (
+            <SelectForm
+              label="Bandeira"
+              options={selectFlagCrediCard}
+              value={
+                selectFlagCrediCard.find(
+                  (option) => option.value === field.value
+                ) || null
+              }
+              onChange={(option) => field.onChange(option?.value || null)}
+              error={errors.flag}
+            />
+          )}
         />
 
         <Input

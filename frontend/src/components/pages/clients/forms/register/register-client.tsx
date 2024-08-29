@@ -15,6 +15,8 @@ import { useState } from 'react';
 import AddressBilling from './address-billing';
 import CreditCard from './credit-card';
 import { IAddressDelivery } from '@/@types/client';
+import { XIcon } from 'lucide-react';
+import { ICreditCard } from '@/@types/credit-card';
 
 export default function RegisterClient() {
   const methods = useForm<IRegisterClientForm>({
@@ -37,11 +39,21 @@ export default function RegisterClient() {
   const [isAddAddressBilling, setIsAddAddressBilling] = useState(false);
   const [isAddCreditCard, setIsAddCreditCard] = useState(false);
   const [addressDelivery, setAddressDelivery] = useState();
+  const [creditCardList, setCreditCardList] = useState<ICreditCard[]>([]);
+  const [activeCreditCard, setActiveCreditCard] = useState<number | null>(null);
 
   const onSubmit: SubmitHandler<IRegisterClientForm> = () => {};
 
   const clearFormFields = () => {
     reset();
+  };
+
+  const handleCreditCardClick = (index: number) => {
+    setActiveCreditCard(activeCreditCard === index ? null : index);
+  };
+
+  const handleDeleteCreditCard = (id: number) => {
+    setCreditCardList(creditCardList.filter((item) => item.id !== id));
   };
 
   return (
@@ -264,7 +276,40 @@ export default function RegisterClient() {
               <h3 className="text-xl font-semibold my-2">Cartão de Crédito</h3>
 
               <div>
-                {isAddCreditCard && <CreditCard />}
+                {creditCardList.map((credit, index) => (
+                  <li key={index} className="mb-2 list-none">
+                    <div
+                      className="bg-blue-600 p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center"
+                      onClick={() => handleCreditCardClick(index)}
+                    >
+                      {`Cartão ${index + 1}`}
+
+                      <button
+                        className="z-10"
+                        type="button"
+                        onClick={() => handleDeleteCreditCard(credit.id)}
+                      >
+                        <XIcon size={18} color="#fff" />
+                      </button>
+                    </div>
+                    {activeCreditCard === index && (
+                      <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
+                        <p>Bandeira do cartão: {credit.flag}</p>
+                        <p>N° do cartão: {credit.number}</p>
+                        <p>CVV: {credit.cvv}</p>
+                        <p>Nome: {credit.nameCreditCard}</p>
+                        <p>Expira: {credit.dateExpired}</p>
+                      </div>
+                    )}
+                  </li>
+                ))}
+
+                {isAddCreditCard && (
+                  <CreditCard
+                    creditCardList={creditCardList}
+                    setCreditCardList={setCreditCardList}
+                  />
+                )}
 
                 <button
                   type="button"

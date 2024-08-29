@@ -1,11 +1,10 @@
 import RegisterClient from '@/components/pages/clients/forms/register/register-client';
+import Header from '@/components/ui/header';
 
 export default function RegisterPage() {
   return (
     <>
-      <header className="py-6">
-        <h1 className="text-2xl font-bold">Cadastro de Clientes</h1>
-      </header>
+      <Header title="Cadastro de clientes" />
 
       <RegisterClient />
     </>

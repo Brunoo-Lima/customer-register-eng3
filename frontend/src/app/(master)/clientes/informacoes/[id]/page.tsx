@@ -1,11 +1,10 @@
 import InfoClient from '@/components/pages/clients/info-client';
+import Header from '@/components/ui/header';
 
 export default function InformationClientId() {
   return (
     <>
-      <header className="py-6">
-        <h1 className="text-2xl font-bold">Informações do cliente</h1>
-      </header>
+      <Header title="Informações do cliente" />
 
       <InfoClient />
     </>
