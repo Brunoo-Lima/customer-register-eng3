@@ -44,7 +44,7 @@ export default function AlterClient() {
       setValue('residentialAddress.city', client.address.city);
       setValue('residentialAddress.state', client.address.state);
       setValue('residentialAddress.country', client.address.country);
-      setValue('residentialAddress.observation', client.observation);
+      setValue('residentialAddress.observation', client.address.observation);
       setValue('status', client.status);
     }
   }, [id, setValue]);
