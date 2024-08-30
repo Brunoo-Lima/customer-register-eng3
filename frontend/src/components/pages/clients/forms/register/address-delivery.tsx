@@ -1,27 +1,19 @@
+import { IAddressDelivery } from '@/@types/client';
 import Input from '@/components/utilities/input';
 import Textarea from '@/components/utilities/textarea';
-import { useState } from 'react';
+import { IAddressDeliverySchema } from '@/components/validations/address-schema';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-interface IAddressDeliverySchema {
-  name: string;
-  neighborhood: string;
-  street: string;
-  publicPlace: string;
-  number: string;
-  zipCode: string;
-  city: string;
-  state: string;
-  country: string;
-  observation?: string;
+interface IAddressDeliveryProps {
+  addressDelivery: IAddressDelivery[];
+  setAddressDelivery: React.Dispatch<React.SetStateAction<IAddressDelivery[]>>;
 }
 
-export default function AddressDelivery() {
-  const [savedAddress, setSavedAddress] = useState<IAddressDeliverySchema[]>(
-    []
-  );
-  const [activeAddress, setActiveAddress] = useState<number | null>(null);
-
+export default function AddressDelivery({
+  addressDelivery,
+  setAddressDelivery,
+}: IAddressDeliveryProps) {
   const {
     register,
     formState: { errors },
@@ -31,41 +23,18 @@ export default function AddressDelivery() {
 
   const handleAddAddress = () => {
     const newAddress = getValues();
-    setSavedAddress([...savedAddress, newAddress]);
-    reset();
-  };
 
-  const handleAddressClick = (index: number) => {
-    setActiveAddress(activeAddress === index ? null : index);
+    const addressDeliveryWithId: IAddressDelivery = {
+      id: Math.ceil(Math.random() * 10000),
+      ...newAddress,
+    };
+
+    setAddressDelivery([...addressDelivery, addressDeliveryWithId]);
+    reset();
   };
 
   return (
     <div>
-      <ul>
-        {savedAddress.map((address, index) => (
-          <li key={index} className="mb-2">
-            <button
-              className="bg-blue-600 p-2 w-full text-left rounded-md"
-              type="button"
-              onClick={() => handleAddressClick(index)}
-            >
-              {address.name || `Endereço de entrega ${index + 1}`}
-            </button>
-            {activeAddress === index && (
-              <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
-                <p>Rua: {address.street}</p>
-                <p>Bairro: {address.neighborhood}</p>
-                <p>CEP: {address.zipCode}</p>
-                <p>Cidade: {address.city}</p>
-                <p>Estado: {address.state}</p>
-                <p>País: {address.country}</p>
-                <p>Observação: {address.observation}</p>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-
       <div className="space-y-4 mt-2">
         <Input
           type="text"

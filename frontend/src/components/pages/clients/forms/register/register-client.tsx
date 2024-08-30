@@ -45,6 +45,9 @@ export default function RegisterClient() {
   const [addressDelivery, setAddressDelivery] = useState<IAddressDelivery[]>(
     []
   );
+  const [activeAddressDelivery, setActiveAddressDelivery] = useState<
+    number | null
+  >(null);
 
   const onSubmit: SubmitHandler<IRegisterClientForm> = () => {};
 
@@ -58,6 +61,14 @@ export default function RegisterClient() {
 
   const handleDeleteAddressBilling = (id: number) => {
     setAddressBilling(addressBilling.filter((item) => item.id !== id));
+  };
+
+  const handleAddressDeliveryClick = (index: number) => {
+    setActiveAddressDelivery(activeAddressDelivery === index ? null : index);
+  };
+
+  const handleDeleteAddressDelivery = (id: number) => {
+    setAddressDelivery(addressDelivery.filter((item) => item.id !== id));
   };
 
   const handleCreditCardClick = (index: number) => {
@@ -255,7 +266,44 @@ export default function RegisterClient() {
                 Endereço de entrega
               </h3>
 
-              {isAddAddressDelivery && <AddressDelivery />}
+              <ul>
+                {addressDelivery.map((address, index) => (
+                  <li key={index} className="mb-2">
+                    <div
+                      className="bg-blue-600 p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center"
+                      onClick={() => handleAddressDeliveryClick(index)}
+                    >
+                      {address.name || `Endereço de entrega ${index + 1}`}
+
+                      <button
+                        className="z-10"
+                        type="button"
+                        onClick={() => handleDeleteAddressDelivery(address.id)}
+                      >
+                        <XIcon size={18} color="#fff" />
+                      </button>
+                    </div>
+                    {activeAddressDelivery === index && (
+                      <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
+                        <p>Rua: {address.street}</p>
+                        <p>Bairro: {address.neighborhood}</p>
+                        <p>CEP: {address.zipCode}</p>
+                        <p>Cidade: {address.city}</p>
+                        <p>Estado: {address.state}</p>
+                        <p>País: {address.country}</p>
+                        <p>Observação: {address.observation}</p>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+
+              {isAddAddressDelivery && (
+                <AddressDelivery
+                  addressDelivery={addressDelivery}
+                  setAddressDelivery={setAddressDelivery}
+                />
+              )}
 
               <button
                 type="button"

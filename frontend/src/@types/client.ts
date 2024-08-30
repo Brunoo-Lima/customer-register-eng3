@@ -8,11 +8,10 @@ export interface IAddress {
   zipCode: string;
   publicPlace: string;
   country: string;
-}
-
-export interface IAddressBilling extends IAddress {
   observation?: string;
 }
+
+export interface IAddressBilling extends IAddress {}
 
 export interface IAddressDelivery extends IAddress {
   name: string;
@@ -32,7 +31,6 @@ export interface IClient {
   gender: string;
   status: 'active' | 'inactive' | string;
   address: IAddress;
-  observation?: string;
   addressDelivery: IAddressDelivery[];
   addressBilling: IAddressBilling[];
 }
