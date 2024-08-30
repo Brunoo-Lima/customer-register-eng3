@@ -43,7 +43,7 @@ export default function InfoClient() {
         <p>Cidade: {clientData?.address.city}</p>
         <p>Estado: {clientData?.address.state}</p>
         <p>País: {clientData?.address.country}</p>
-        <p>Observação: {clientData?.observation}</p>
+        <p>Observação: {clientData?.address.observation}</p>
       </div>
 
       <div>
