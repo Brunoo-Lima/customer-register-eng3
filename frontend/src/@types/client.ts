@@ -1,5 +1,6 @@
+import { ICreditCard } from './credit-card';
+
 export interface IAddress {
-  id: number;
   street: string;
   number: string;
   neighborhood: string;
@@ -11,9 +12,12 @@ export interface IAddress {
   observation?: string;
 }
 
-export interface IAddressBilling extends IAddress {}
+export interface IAddressBilling extends IAddress {
+  id: number;
+}
 
 export interface IAddressDelivery extends IAddress {
+  id: number;
   name: string;
 }
 
@@ -33,4 +37,5 @@ export interface IClient {
   address: IAddress;
   addressDelivery: IAddressDelivery[];
   addressBilling: IAddressBilling[];
+  creditCard: ICreditCard[];
 }

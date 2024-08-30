@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import { addressDeliverySchema, addressSchema } from './address-schema';
+import { creditCardSchema } from './credit-card-schema';
 
 export type IRegisterClientForm = yup.InferType<typeof RegisterClientSchema>;
 
@@ -21,6 +22,10 @@ export const RegisterClientSchema = yup.object({
     .array()
     .of(addressSchema)
     .min(1, 'É necessário pelo menos um endereço de cobrança'),
+  creditCard: yup
+    .array()
+    .of(creditCardSchema)
+    .min(1, 'É necessário pelo menos um cartão de crédito'),
   status: yup.string().default('Ativo'),
   email: yup.string().email().required('E-mail é obrigatório'),
   password: yup

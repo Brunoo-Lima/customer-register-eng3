@@ -36,7 +36,7 @@ export default function RegisterForm({ back }: IRegisterProps) {
       <div className="flex flex-col">
         <label htmlFor="">Usuário</label>
         <input
-          className="text-black"
+          className="text-black rounded-md"
           type="text"
           placeholder="Digite seu nome"
           {...register('name')}
@@ -47,7 +47,7 @@ export default function RegisterForm({ back }: IRegisterProps) {
       <div className="flex flex-col">
         <label htmlFor="">Senha</label>
         <input
-          className="text-black"
+          className="text-black rounded-md"
           type="password"
           placeholder="Digite sua senha"
           {...register('password')}
@@ -60,7 +60,7 @@ export default function RegisterForm({ back }: IRegisterProps) {
       <div className="flex flex-col">
         <label htmlFor="">Confirmar senha</label>
         <input
-          className="text-black"
+          className="text-black rounded-md"
           type="password"
           placeholder="Digite sua senha novamente"
           {...register('confirmPassword')}
@@ -70,7 +70,10 @@ export default function RegisterForm({ back }: IRegisterProps) {
         )}
       </div>
 
-      <button type="submit" className="bg-blue-500 text-white">
+      <button
+        type="submit"
+        className="bg-blue-500 text-white h-10 rounded-md hover:bg-blue-700/80 transition duration-300"
+      >
         Criar conta
       </button>
     </form>

@@ -12,7 +12,6 @@ export const clientsList = [
     gender: 'Masculino',
     ranking: 1,
     status: 'Ativo',
-    observation: '',
     address: {
       street: 'Rua Teste',
       number: '123',
@@ -22,9 +21,11 @@ export const clientsList = [
       zipCode: '12345-678',
       country: 'Brasil',
       publicPlace: 'Casa',
+      observation: '',
     },
     addressDelivery: [
       {
+        id: 1,
         name: 'Principal',
         street: 'Rua Teste',
         number: '123',
@@ -34,10 +35,12 @@ export const clientsList = [
         zipCode: '12345-678',
         country: 'Brasil',
         publicPlace: 'Apartamento',
+        observation: '',
       },
     ],
     addressBilling: [
       {
+        id: 1,
         street: 'Rua Teste',
         number: '123',
         neighborhood: 'Bairro Teste',
@@ -46,6 +49,17 @@ export const clientsList = [
         zipCode: '12345-678',
         country: 'Brasil',
         publicPlace: 'Apartamento',
+        observation: '',
+      },
+    ],
+    creditCard: [
+      {
+        id: 1,
+        number: 77777777777,
+        cvv: 125,
+        nameCreditCard: 'Teste cartao',
+        dateExpired: '12/32',
+        flag: 'Mastercard',
       },
     ],
   },
@@ -62,7 +76,6 @@ export const clientsList = [
     gender: 'Masculino',
     ranking: 2,
     status: 'Inativo',
-    observation: '',
     address: {
       street: 'Rua Teste',
       number: '123',
@@ -72,9 +85,11 @@ export const clientsList = [
       zipCode: '12345-678',
       country: 'Brasil',
       publicPlace: 'Apartamento',
+      observation: '',
     },
     addressDelivery: [
       {
+        id: 1,
         name: 'Principal',
         street: 'Rua Teste',
         number: '123',
@@ -84,10 +99,12 @@ export const clientsList = [
         zipCode: '12345-678',
         country: 'Brasil',
         publicPlace: 'Apartamento',
+        observation: '',
       },
     ],
     addressBilling: [
       {
+        id: 1,
         street: 'Rua Teste',
         number: '123',
         neighborhood: 'Bairro Teste',
@@ -96,6 +113,17 @@ export const clientsList = [
         zipCode: '12345-678',
         country: 'Brasil',
         publicPlace: 'Apartamento',
+        observation: '',
+      },
+    ],
+    creditCard: [
+      {
+        id: 1,
+        number: 5555555555,
+        cvv: 241,
+        nameCreditCard: 'Teste cartao 1',
+        dateExpired: '12/27',
+        flag: 'Elo',
       },
     ],
   },

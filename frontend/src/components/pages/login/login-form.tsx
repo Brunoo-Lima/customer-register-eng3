@@ -67,7 +67,7 @@ export default function LoginForm({ create }: ILoginProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-blue-500 text-white"
+        className="bg-blue-500 text-white h-10 rounded-md hover:bg-blue-700/80 transition duration-300"
       >
         Entrar
       </button>
