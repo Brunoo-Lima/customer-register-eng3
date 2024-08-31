@@ -2,16 +2,16 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from '@/components/utilities/input';
-import Textarea from '@/components/utilities/textarea';
+import Input from '@/components/ui/input';
+import Textarea from '@/components/ui/textarea';
 import {
   IRegisterClientForm,
   RegisterClientSchema,
-} from '@/components/validations/register-client-schema';
-import Radio from '@/components/utilities/radio';
+} from '@/validations/register-client-schema';
+import Radio from '@/components/ui/radio';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { clientsList } from '@/components/mocks/clientsList';
+import { clientsList } from '@/mocks/clientsList';
 
 export default function AlterClient() {
   const {

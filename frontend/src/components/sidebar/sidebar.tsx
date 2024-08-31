@@ -1,5 +1,5 @@
 import { LogOutIcon, UserRoundPlusIcon, UsersRoundIcon } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import Link from 'next/link';
 
 export default function Sidebar() {

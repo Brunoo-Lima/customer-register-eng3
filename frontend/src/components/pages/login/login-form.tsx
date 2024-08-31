@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAuth } from '../../hooks/useAuth';
-import { ILoginForm, LoginSchema } from '../../validations/login-schema';
+import { useAuth } from '../../../hooks/useAuth';
+import { ILoginForm, LoginSchema } from '../../../validations/login-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 interface ILoginProps {

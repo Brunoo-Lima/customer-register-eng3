@@ -1,7 +1,7 @@
 'use client';
 
 import { IClient } from '@/@types/client';
-import { clientsList } from '@/components/mocks/clientsList';
+import { clientsList } from '@/mocks/clientsList';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

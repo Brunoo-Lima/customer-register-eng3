@@ -1,11 +1,11 @@
 import { ICreditCard } from '@/@types/credit-card';
-import { selectFlagCrediCard } from '@/components/mocks/select';
-import Input from '@/components/utilities/input';
-import SelectForm from '@/components/utilities/select';
+import { selectFlagCrediCard } from '@/mocks/select';
+import Input from '@/components/ui/input';
+import SelectForm from '@/components/ui/select';
 import {
   creditCardSchema,
   ICreditCardSchema,
-} from '@/components/validations/credit-card-schema';
+} from '@/validations/credit-card-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 

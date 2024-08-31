@@ -1,7 +1,4 @@
-import {
-  IRegisterForm,
-  RegisterSchema,
-} from '@/components/validations/register-schema';
+import { IRegisterForm, RegisterSchema } from '@/validations/register-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 

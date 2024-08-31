@@ -2,14 +2,12 @@
 
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Textarea from '@/components/utilities/textarea';
 import {
   IRegisterClientForm,
   RegisterClientSchema,
-} from '@/components/validations/register-client-schema';
-import Radio from '@/components/utilities/radio';
-import Input from '@/components/utilities/input';
-import DatePicker from '@/components/utilities/date-picker';
+} from '@/validations/register-client-schema';
+import Radio from '@/components/ui/radio';
+import Input from '@/components/ui/input';
 import AddressDelivery from './address-delivery';
 import { useState } from 'react';
 import AddressBilling from './address-billing';
@@ -17,6 +15,7 @@ import CreditCard from './credit-card';
 import { IAddressBilling, IAddressDelivery } from '@/@types/client';
 import { XIcon } from 'lucide-react';
 import { ICreditCard } from '@/@types/credit-card';
+import Address from './address';
 
 export default function RegisterClient() {
   const methods = useForm<IRegisterClientForm>({
@@ -179,84 +178,7 @@ export default function RegisterClient() {
             />
 
             <div className="space-y-4">
-              <div className="my-2">
-                <h3 className="text-xl font-semibold">Endereço</h3>
-              </div>
-
-              <Input
-                type="text"
-                label="Bairro"
-                placeholder="Digite o nome do bairro"
-                {...register('residentialAddress.neighborhood')}
-                error={errors?.residentialAddress?.neighborhood}
-              />
-
-              <Input
-                type="text"
-                label="Rua"
-                placeholder="Digite o nome da rua"
-                {...register('residentialAddress.street')}
-                error={errors?.residentialAddress?.street}
-              />
-
-              <div className="grid md:grid-cols-2 md:gap-6">
-                <Input
-                  type="text"
-                  label="Logradouro"
-                  placeholder="Digite o logradouro"
-                  {...register('residentialAddress.publicPlace')}
-                  error={errors?.residentialAddress?.publicPlace}
-                />
-                <Input
-                  type="number"
-                  label="Número"
-                  placeholder="Digite o número"
-                  {...register('residentialAddress.number')}
-                  error={errors?.residentialAddress?.number}
-                />
-              </div>
-              <div className="grid md:grid-cols-2 md:gap-6">
-                <Input
-                  type="text"
-                  label="CEP"
-                  placeholder="00000-000"
-                  {...register('residentialAddress.zipCode')}
-                  error={errors?.residentialAddress?.zipCode}
-                />
-                <Input
-                  type="text"
-                  label="Cidade"
-                  placeholder="Digite a cidade"
-                  {...register('residentialAddress.city')}
-                  error={errors?.residentialAddress?.city}
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 md:gap-6">
-                <Input
-                  type="text"
-                  label="Estado"
-                  placeholder="Digite o estado"
-                  {...register('residentialAddress.state')}
-                  error={errors?.residentialAddress?.state}
-                />
-                <Input
-                  type="text"
-                  label="País"
-                  placeholder="Digite o país"
-                  {...register('residentialAddress.country')}
-                  error={errors?.residentialAddress?.country}
-                />
-              </div>
-
-              <div>
-                <Textarea
-                  label="Observações"
-                  placeholder="Digite sua observação (opcional)"
-                  {...register('residentialAddress.observation')}
-                  error={errors?.residentialAddress?.observation}
-                />
-              </div>
+              <Address />
             </div>
           </div>
 

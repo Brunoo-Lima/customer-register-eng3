@@ -1,4 +1,4 @@
-import { clientsList } from '@/components/mocks/clientsList';
+import { clientsList } from '@/mocks/clientsList';
 import Table from './table';
 import { SearchIcon } from 'lucide-react';
 

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Providers from '../components/providers/providers';
-import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,10 +19,6 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <Providers>{children}</Providers>
-        <Script
-          src="/path/to/flowbite/dist/flowbite.min.js"
-          strategy="beforeInteractive"
-        />
       </body>
     </html>
   );
