@@ -1,23 +1,26 @@
 'use client';
 
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { IAddressBilling, IAddressDelivery } from '@/@types/client';
+import { ICreditCard } from '@/@types/credit-card';
+import Input from '@/components/ui/input';
+import Radio from '@/components/ui/radio';
+import { clientsList } from '@/mocks/clientsList';
 import {
   IRegisterClientForm,
   RegisterClientSchema,
 } from '@/validations/register-client-schema';
-import Radio from '@/components/ui/radio';
-import Input from '@/components/ui/input';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import Address from './address';
+import { XIcon } from 'lucide-react';
 import AddressDelivery from './address-delivery';
-import { useState } from 'react';
+import Button from '@/components/ui/button';
 import AddressBilling from './address-billing';
 import CreditCard from './credit-card';
-import { IAddressBilling, IAddressDelivery } from '@/@types/client';
-import { XIcon } from 'lucide-react';
-import { ICreditCard } from '@/@types/credit-card';
-import Address from './address';
 
-export default function RegisterClient() {
+export default function AlterClientForm() {
   const methods = useForm<IRegisterClientForm>({
     resolver: yupResolver(RegisterClientSchema),
     defaultValues: {
@@ -31,6 +34,7 @@ export default function RegisterClient() {
     handleSubmit,
     reset,
     control,
+    setValue,
     formState: { errors },
   } = methods;
 
@@ -48,9 +52,38 @@ export default function RegisterClient() {
     number | null
   >(null);
 
-  const onSubmit: SubmitHandler<IRegisterClientForm> = () => {};
+  const router = useRouter();
+  const { id } = useParams();
 
-  const clearFormFields = () => {
+  useEffect(() => {
+    const client = clientsList.find((client) => client.id === Number(id));
+
+    if (client) {
+      setValue('name', client.name);
+      setValue('cpf', client.cpf);
+      setValue('typePhone', client.typePhone);
+      setValue('phone', client.phone);
+      setValue('dateOfBirth', client.dateOfBirth);
+      setValue('gender', client.gender);
+      setValue('residentialAddress.neighborhood', client.address.neighborhood);
+      setValue('residentialAddress.street', client.address.street);
+      setValue('residentialAddress.publicPlace', client.address.publicPlace);
+      setValue('residentialAddress.number', client.address.number.toString());
+      setValue('residentialAddress.zipCode', client.address.zipCode);
+      setValue('residentialAddress.city', client.address.city);
+      setValue('residentialAddress.state', client.address.state);
+      setValue('residentialAddress.country', client.address.country);
+      setValue('residentialAddress.observation', client.address.observation);
+      setValue('status', client.status);
+    }
+  }, [id, setValue]);
+
+  const onSubmit: SubmitHandler<IRegisterClientForm> = () => {
+    router.replace('/clientes');
+  };
+
+  const cancelAlterFormsFields = () => {
+    router.back();
     reset();
   };
 
@@ -153,6 +186,14 @@ export default function RegisterClient() {
               )}
             </div>
 
+            <div>
+              <p className="block text-sm font-medium text-white">
+                Status do cliente
+              </p>
+              <Radio label="Ativo" value="Ativo" {...register('status')} />
+              <Radio label="Inativo" value="Inativo" {...register('status')} />
+            </div>
+
             <Input
               type="email"
               label="E-mail"
@@ -227,13 +268,14 @@ export default function RegisterClient() {
                 />
               )}
 
-              <button
+              <Button
                 type="button"
+                size="sm"
+                color="addFields"
                 onClick={() => setIsAddAddressDelivery(!isAddAddressDelivery)}
-                className="bg-blue-500 p-2"
               >
                 Adicionar endereço
-              </button>
+              </Button>
             </div>
 
             <div>
@@ -281,13 +323,14 @@ export default function RegisterClient() {
                   />
                 )}
 
-                <button
+                <Button
                   type="button"
+                  size="sm"
+                  color="addFields"
                   onClick={() => setIsAddAddressBilling(!isAddAddressBilling)}
-                  className="bg-blue-500 p-2"
                 >
                   Adicionar endereço
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -330,31 +373,31 @@ export default function RegisterClient() {
                   />
                 )}
 
-                <button
+                <Button
                   type="button"
+                  size="sm"
+                  color="addFields"
                   onClick={() => setIsAddCreditCard(!isAddCreditCard)}
-                  className="bg-blue-500 p-2"
                 >
                   Adicionar cartão
-                </button>
+                </Button>
               </div>
             </div>
 
-            <div className="flex gap-4 justify-center">
-              <button
-                type="submit"
-                className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm max-w-fit px-5 py-2.5 text-center border-transparent"
-              >
-                Adicionar cliente
-              </button>
+            <div className="flex justify-center gap-4">
+              <Button type="submit" size="default" color="primary">
+                Salvar alteração
+              </Button>
 
-              <button
+              <Button
                 type="button"
-                onClick={clearFormFields}
-                className="text-blue-700 bg-white border-[1px] border-blue-700 font-medium rounded-lg text-sm max-w-fit px-5 py-2.5 text-center"
+                size="default"
+                onClick={cancelAlterFormsFields}
+                color="empty"
+                className="border-[1px] border-blue-700"
               >
-                Limpar campos
-              </button>
+                Cancelar
+              </Button>
             </div>
           </div>
         </div>

@@ -1,54 +1,58 @@
-import { IAddressBilling } from '@/@types/client';
+import { IAddressDelivery } from '@/@types/client';
+import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Textarea from '@/components/ui/textarea';
 import { getCep } from '@/services/cep';
-import { addressSchema, IAddressSchema } from '@/validations/address-schema';
+import {
+  addressDeliverySchema,
+  IAddressDeliverySchema,
+} from '@/validations/address-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FocusEvent } from 'react';
+import React, { FocusEvent } from 'react';
 import { useForm } from 'react-hook-form';
 
-interface IAddressBillingProps {
-  addressBilling: IAddressBilling[];
-  setAddressBilling: React.Dispatch<React.SetStateAction<IAddressBilling[]>>;
+interface IAddressDeliveryProps {
+  addressDelivery: IAddressDelivery[];
+  setAddressDelivery: React.Dispatch<React.SetStateAction<IAddressDelivery[]>>;
 }
 
-export default function AddressBilling({
-  addressBilling,
-  setAddressBilling,
-}: IAddressBillingProps) {
+export default function AddressDelivery({
+  addressDelivery,
+  setAddressDelivery,
+}: IAddressDeliveryProps) {
   const {
     register,
     formState: { errors },
+    setValue,
     reset,
     getValues,
-    setValue,
-  } = useForm<IAddressSchema>({
-    resolver: yupResolver(addressSchema),
+  } = useForm<IAddressDeliverySchema>({
+    resolver: yupResolver(addressDeliverySchema),
   });
 
   const handleAddAddress = () => {
     const newAddress = getValues();
 
-    const addressBillingWithId: IAddressBilling = {
+    const addressDeliveryWithId: IAddressDelivery = {
       id: Math.ceil(Math.random() * 10000),
       ...newAddress,
     };
 
-    setAddressBilling([...addressBilling, addressBillingWithId]);
+    setAddressDelivery([...addressDelivery, addressDeliveryWithId]);
     reset();
   };
 
   const handleAddCep = async (e: FocusEvent<HTMLInputElement>) => {
-    const cep = e.target.value;
+    const cep = e.target.value.replace(/\D/g, '');
 
     try {
       const data = await getCep(cep);
 
-      setValue('street', data.logradouro);
       setValue('neighborhood', data.bairro);
-      setValue('city', data.localidade);
-      setValue('state', data.uf);
+      setValue('street', data.logradouro);
       setValue('publicPlace', data.complemento);
+      setValue('state', data.uf);
+      setValue('city', data.localidade);
     } catch (err) {
       console.error(err);
     }
@@ -56,6 +60,14 @@ export default function AddressBilling({
 
   return (
     <div className="space-y-4 my-2">
+      <Input
+        type="text"
+        label="Nome do Endereço"
+        placeholder="Nome curto para identificar o endereço"
+        {...register('name')}
+        error={errors.name}
+      />
+
       <div className="grid md:grid-cols-2 md:gap-6">
         <Input
           type="text"
@@ -129,13 +141,14 @@ export default function AddressBilling({
           error={errors.observation}
         />
       </div>
-      <button
-        className="rounded-md bg-green-700 text-white h-10 w-24"
+      <Button
         type="button"
+        size="xs"
+        color="success"
         onClick={handleAddAddress}
       >
         Adicionar
-      </button>
+      </Button>
     </div>
   );
 }

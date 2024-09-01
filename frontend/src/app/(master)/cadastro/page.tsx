@@ -1,13 +1,12 @@
-import RegisterClient from '@/components/pages/clients/forms/register/register-client';
+import RegisterClientForm from '@/components/pages/clients/forms/register/register-client-form';
 import Header from '@/components/ui/header';
-import { getCep } from '@/services/cep';
 
 export default function RegisterPage() {
   return (
     <>
       <Header title="Cadastro de clientes" />
 
-      <RegisterClient />
+      <RegisterClientForm />
     </>
   );
 }

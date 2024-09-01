@@ -17,6 +17,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",
     "react-select": "^5.8.0",
+    "tailwind-variants": "^0.2.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {

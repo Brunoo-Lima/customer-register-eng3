@@ -8,13 +8,14 @@ import {
 } from '@/validations/credit-card-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
+import Button from '@/components/ui/button';
 
 interface ICreditCardProps {
   creditCardList: ICreditCard[];
   setCreditCardList: React.Dispatch<React.SetStateAction<ICreditCard[]>>;
 }
 
-export default function CreditCard({
+export default function CreditCardForm({
   creditCardList,
   setCreditCardList,
 }: ICreditCardProps) {
@@ -42,7 +43,7 @@ export default function CreditCard({
   });
 
   return (
-    <div>
+    <div className="my-2">
       <div className="space-y-4 mb-4">
         <Controller
           name="flag"
@@ -97,13 +98,14 @@ export default function CreditCard({
         />
       </div>
 
-      <button
-        onClick={handleAddCreditCard}
+      <Button
         type="button"
-        className="bg-green-500 p-2 rounded-md my-2"
+        color="success"
+        size="xs"
+        onClick={handleAddCreditCard}
       >
         Adicionar
-      </button>
+      </Button>
     </div>
   );
 }
