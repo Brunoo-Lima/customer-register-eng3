@@ -9,13 +9,16 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
+import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { clientsList } from '@/mocks/clientsList';
 
 interface ICreditCardProps {
   creditCardList: ICreditCard[];
   setCreditCardList: React.Dispatch<React.SetStateAction<ICreditCard[]>>;
 }
 
-export default function CreditCard({
+export default function AlterCreditCardForm({
   creditCardList,
   setCreditCardList,
 }: ICreditCardProps) {
@@ -26,9 +29,11 @@ export default function CreditCard({
     reset,
     handleSubmit,
     getValues,
+    setValue,
   } = useForm<ICreditCardSchema>({
     resolver: yupResolver(creditCardSchema),
   });
+  const { id } = useParams();
 
   const handleAddCreditCard = handleSubmit(() => {
     const newCreditCard = getValues();
@@ -41,6 +46,21 @@ export default function CreditCard({
     setCreditCardList([...creditCardList, creditCardWithID]);
     reset();
   });
+
+  useEffect(() => {
+    const client = clientsList.find((client) => client.id === Number(id));
+
+    if (client) {
+      client.creditCard.forEach((credit) => {
+        setValue('nameCreditCard', credit.nameCreditCard);
+        setValue('cvv', credit.cvv);
+        setValue('dateExpired', credit.dateExpired);
+        setValue('flag', credit.flag);
+        setValue('number', credit.number);
+        setValue('number', credit.number);
+      });
+    }
+  }, [id, setValue]);
 
   return (
     <div className="my-2">

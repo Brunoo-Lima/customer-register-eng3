@@ -1,73 +1,81 @@
-import { IAddressDelivery } from '@/@types/client';
+import { IAddressBilling } from '@/@types/client';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Textarea from '@/components/ui/textarea';
+import { clientsList } from '@/mocks/clientsList';
 import { getCep } from '@/services/cep';
-import {
-  addressDeliverySchema,
-  IAddressDeliverySchema,
-} from '@/validations/address-schema';
+import { addressSchema, IAddressSchema } from '@/validations/address-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FocusEvent } from 'react';
+import { useParams } from 'next/navigation';
+import { FocusEvent, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-interface IAddressDeliveryProps {
-  addressDelivery: IAddressDelivery[];
-  setAddressDelivery: React.Dispatch<React.SetStateAction<IAddressDelivery[]>>;
+interface IAddressBillingProps {
+  addressBilling: IAddressBilling[];
+  setAddressBilling: React.Dispatch<React.SetStateAction<IAddressBilling[]>>;
 }
 
-export default function AddressDelivery({
-  addressDelivery,
-  setAddressDelivery,
-}: IAddressDeliveryProps) {
+export default function AlterAddressBillingForm({
+  addressBilling,
+  setAddressBilling,
+}: IAddressBillingProps) {
   const {
     register,
     formState: { errors },
-    setValue,
     reset,
     getValues,
-  } = useForm<IAddressDeliverySchema>({
-    resolver: yupResolver(addressDeliverySchema),
+    setValue,
+  } = useForm<IAddressSchema>({
+    resolver: yupResolver(addressSchema),
   });
+  const { id } = useParams();
 
   const handleAddAddress = () => {
     const newAddress = getValues();
 
-    const addressDeliveryWithId: IAddressDelivery = {
+    const addressBillingWithId: IAddressBilling = {
       id: Math.ceil(Math.random() * 10000),
       ...newAddress,
     };
 
-    setAddressDelivery([...addressDelivery, addressDeliveryWithId]);
+    setAddressBilling([...addressBilling, addressBillingWithId]);
     reset();
   };
 
   const handleAddCep = async (e: FocusEvent<HTMLInputElement>) => {
-    const cep = e.target.value.replace(/\D/g, '');
+    const cep = e.target.value;
 
     try {
       const data = await getCep(cep);
 
-      setValue('neighborhood', data.bairro);
       setValue('street', data.logradouro);
-      setValue('publicPlace', data.complemento);
-      setValue('state', data.uf);
+      setValue('neighborhood', data.bairro);
       setValue('city', data.localidade);
+      setValue('state', data.uf);
+      setValue('publicPlace', data.complemento);
     } catch (err) {
       console.error(err);
     }
   };
 
+  useEffect(() => {
+    const client = clientsList.find((client) => client.id === Number(id));
+
+    if (client) {
+      client.addressBilling.forEach((address) => {
+        setValue('neighborhood', address.neighborhood);
+        setValue('city', address.city);
+        setValue('number', address.number);
+        setValue('state', address.state);
+        setValue('street', address.street);
+        setValue('publicPlace', address.publicPlace);
+        setValue('zipCode', address.zipCode);
+      });
+    }
+  }, [id, setValue]);
+
   return (
     <div className="space-y-4 my-2">
-      <Input
-        type="text"
-        label="Nome do Endereço"
-        placeholder="Nome curto para identificar o endereço"
-        {...register('name')}
-        error={errors.name}
-      />
-
       <div className="grid md:grid-cols-2 md:gap-6">
         <Input
           type="text"
@@ -143,8 +151,8 @@ export default function AddressDelivery({
       </div>
       <Button
         type="button"
-        size="xs"
         color="success"
+        size="xs"
         onClick={handleAddAddress}
       >
         Adicionar

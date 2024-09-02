@@ -1,5 +1,4 @@
-import AlterClientForm from '@/components/pages/clients/forms/alter/alter';
-import AlterClient from '@/components/pages/clients/forms/alter/alter-client';
+import AlterClientForm from '@/components/pages/clients/forms/alter/alter-client-form';
 import Header from '@/components/ui/header';
 
 export default function AlterClientsPage() {

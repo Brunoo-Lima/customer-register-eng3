@@ -1,17 +1,40 @@
 import Input from '@/components/ui/input';
 import Radio from '@/components/ui/radio';
+import { clientsList } from '@/mocks/clientsList';
 import { IRegisterClientForm } from '@/validations/register-client-schema';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
+import { FieldErrors, useFormContext, UseFormRegister } from 'react-hook-form';
 
 interface IClientPersonal {
   register: UseFormRegister<IRegisterClientForm>;
   errors: FieldErrors<IRegisterClientForm>;
 }
 
-export default function ClientPersonalInfoForm({
+export default function AlterClientPersonalInfoForm({
   register,
   errors,
 }: IClientPersonal) {
+  const { setValue } = useFormContext();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const client = clientsList.find((client) => client.id === Number(id));
+
+    if (client) {
+      setValue('name', client.name);
+      setValue('cpf', client.cpf);
+      setValue('typePhone', client.typePhone);
+      setValue('phone', client.phone);
+      setValue('dateOfBirth', client.dateOfBirth);
+      setValue('email', client.email);
+      setValue('password', client.password);
+      setValue('confirm', client.confirmPassword);
+      setValue('gender', client.gender);
+      setValue('status', client.status);
+    }
+  }, [id, setValue]);
+
   return (
     <>
       <Input
@@ -57,7 +80,6 @@ export default function ClientPersonalInfoForm({
           type="tel"
           label="Telefone"
           placeholder="(00) 0000-0000"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           {...register('phone')}
           error={errors?.phone}
         />
@@ -72,6 +94,14 @@ export default function ClientPersonalInfoForm({
               {errors.gender.message}
             </span>
           )}
+        </div>
+
+        <div>
+          <p className="block text-sm font-medium text-white">
+            Status do cliente
+          </p>
+          <Radio label="Ativo" value="Ativo" {...register('status')} />
+          <Radio label="Inativo" value="Inativo" {...register('status')} />
         </div>
       </div>
 

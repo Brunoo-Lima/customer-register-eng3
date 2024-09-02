@@ -1,17 +1,23 @@
 import Input from '@/components/ui/input';
 import Textarea from '@/components/ui/textarea';
+import { clientsList } from '@/mocks/clientsList';
 import { getCep } from '@/services/cep';
 import { IRegisterClientForm } from '@/validations/register-client-schema';
-import { FocusEvent } from 'react';
+import { useParams } from 'next/navigation';
+import { FocusEvent, useEffect } from 'react';
+import { FieldErrors, useFormContext, UseFormRegister } from 'react-hook-form';
 
-import { useFormContext } from 'react-hook-form';
+interface IAddressResidential {
+  register: UseFormRegister<IRegisterClientForm>;
+  errors: FieldErrors<IRegisterClientForm>;
+}
 
-export default function Address() {
-  const {
-    register,
-    formState: { errors },
-    setValue,
-  } = useFormContext<IRegisterClientForm>();
+export default function AlterClientAddressResidentialForm({
+  errors,
+  register,
+}: IAddressResidential) {
+  const { setValue } = useFormContext<IRegisterClientForm>();
+  const { id } = useParams();
 
   const handleAddCep = async (e: FocusEvent<HTMLInputElement>) => {
     const cep = e.target.value.replace(/\D/g, '');
@@ -29,8 +35,24 @@ export default function Address() {
     }
   };
 
+  useEffect(() => {
+    const client = clientsList.find((client) => client.id === Number(id));
+
+    if (client) {
+      setValue('residentialAddress.neighborhood', client.address.neighborhood);
+      setValue('residentialAddress.street', client.address.street);
+      setValue('residentialAddress.publicPlace', client.address.publicPlace);
+      setValue('residentialAddress.number', client.address.number.toString());
+      setValue('residentialAddress.zipCode', client.address.zipCode);
+      setValue('residentialAddress.city', client.address.city);
+      setValue('residentialAddress.state', client.address.state);
+      setValue('residentialAddress.country', client.address.country);
+      setValue('residentialAddress.observation', client.address.observation);
+    }
+  }, [id, setValue]);
+
   return (
-    <>
+    <div className="space-y-4 pt-4">
       <div className="my-2">
         <h3 className="text-xl font-semibold">Endereço</h3>
       </div>
@@ -112,6 +134,6 @@ export default function Address() {
           error={errors?.residentialAddress?.observation}
         />
       </div>
-    </>
+    </div>
   );
 }
