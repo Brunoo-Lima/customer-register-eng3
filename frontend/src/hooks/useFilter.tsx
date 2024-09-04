@@ -10,8 +10,10 @@ interface IFilterContextProps {
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
   selectedStatus: ISelect | null;
   setSelectedStatus: React.Dispatch<React.SetStateAction<ISelect | null>>;
-  selectedState: string | null;
-  setSelectedState: React.Dispatch<React.SetStateAction<string | null>>;
+  selectedState: ISelect | null;
+  setSelectedState: React.Dispatch<React.SetStateAction<ISelect | null>>;
+  selectedCity: ISelect | null;
+  setSelectedCity: React.Dispatch<React.SetStateAction<ISelect | null>>;
   searchName: string;
   setSearchName: React.Dispatch<React.SetStateAction<string>>;
   filteredData: IClient[];
@@ -30,7 +32,8 @@ export const FilterContext = createContext<IFilterContextProps>(
 export const FilterProvider = ({ children }: FilterProviderProps) => {
   const [isSearching, setIsSearching] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<ISelect | null>(null);
-  const [selectedState, setSelectedState] = useState<string | null>(null);
+  const [selectedState, setSelectedState] = useState<ISelect | null>(null);
+  const [selectedCity, setSelectedCity] = useState<ISelect | null>(null);
   const [searchName, setSearchName] = useState<string>('');
   const [filteredData, setFilteredData] = useState<IClient[]>(clientsList);
 
@@ -39,6 +42,7 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
     setSelectedStatus(null);
     setIsSearching(false);
     setSearchName('');
+    setSelectedCity(null);
 
     setFilteredData(clientsList);
   };
@@ -56,6 +60,8 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
       setSearchName,
       filteredData,
       setFilteredData,
+      selectedCity,
+      setSelectedCity,
     }),
     [
       selectedStatus,
@@ -68,6 +74,8 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
       setSearchName,
       filteredData,
       setFilteredData,
+      selectedCity,
+      setSelectedCity,
     ]
   );
 

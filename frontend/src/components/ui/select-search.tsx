@@ -10,7 +10,8 @@ const customStyles: StylesConfig<any, false> = {
     borderRadius: '0.375rem',
     backgroundColor: '#fff',
     padding: '0 0.2rem ',
-    color: '#000',
+    fontSize: '0.875rem',
+    color: '#181818',
     boxShadow: 'none',
     '&:hover': {
       borderColor: '#3b82f6',
@@ -34,6 +35,8 @@ const customStyles: StylesConfig<any, false> = {
   }),
   menu: (provided) => ({
     ...provided,
+    marginTop: '0.1rem',
+    fontSize: '0.875rem',
     backgroundColor: '#fff',
   }),
   menuList: (provided) => ({
@@ -63,12 +66,16 @@ interface ISelect {
   onChange: (value: IOptions | null) => void;
   error?: FieldError | null;
   placeholder: string;
+  className?: string;
 }
 
 const SelectSearch = forwardRef<HTMLSelectElement, ISelect>(
-  ({ options, value, onChange, placeholder, error }, ref) => {
+  (
+    { options, value, onChange, placeholder, error, className, ...rest },
+    ref
+  ) => {
     return (
-      <div className="w-36">
+      <div className={className}>
         <Select
           placeholder={placeholder}
           styles={customStyles}
