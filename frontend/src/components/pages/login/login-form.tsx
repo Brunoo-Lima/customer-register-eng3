@@ -31,26 +31,30 @@ export default function LoginForm({ create }: ILoginProps) {
       className="flex flex-col w-[300px] space-y-5"
     >
       <div className="flex flex-col">
-        <label htmlFor="">Usuário</label>
+        <label htmlFor="user">Usuário</label>
         <input
-          className="text-black rounded-md"
+          className="text-black text-base rounded-md h-8 ps-2 pe-2 outline-none border-[1.5px] border-transparent focus-visible:border-blue-500"
           type="text"
           placeholder="Digite seu nome"
           {...register('user')}
         />
-        {errors.user && <span className="text-xs">{errors.user.message}</span>}
+        {errors.user && (
+          <span className="text-xs text-red-500">{errors.user.message}</span>
+        )}
       </div>
 
       <div className="flex flex-col">
-        <label htmlFor="">Senha</label>
+        <label htmlFor="password">Senha</label>
         <input
-          className="text-black rounded-md"
+          className="text-black text-base rounded-md h-8 ps-2 pe-2 outline-none border-[1.5px] border-transparent focus-visible:border-blue-500"
           type="password"
           placeholder="Digite sua senha"
           {...register('password')}
         />
         {errors.password && (
-          <span className="text-xs">{errors.password.message}</span>
+          <span className="text-xs text-red-500">
+            {errors.password.message}
+          </span>
         )}
       </div>
 
