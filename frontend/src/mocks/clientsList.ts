@@ -10,7 +10,7 @@ export const clientsList = [
     typePhone: 'Celular',
     phone: '(11) 99999-9999',
     gender: 'Masculino',
-    ranking: 1,
+    ranking: 'Bronze',
     status: 'Ativo',
     address: {
       street: 'Rua Teste',
@@ -74,7 +74,7 @@ export const clientsList = [
     typePhone: 'Fixo',
     phone: '(11) 99999-9999',
     gender: 'Masculino',
-    ranking: 2,
+    ranking: 'Ouro',
     status: 'Inativo',
     address: {
       street: 'Rua Teste',

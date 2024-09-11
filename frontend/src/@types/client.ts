@@ -31,11 +31,18 @@ export interface IClient {
   cpf: string;
   typePhone: string;
   phone: string;
-  ranking: number;
+  ranking: Ranking | string;
   gender: string;
   status: 'active' | 'inactive' | string;
   address: IAddress;
   addressDelivery: IAddressDelivery[];
   addressBilling: IAddressBilling[];
   creditCard: ICreditCard[];
+}
+
+export enum Ranking {
+  SEM_CLASSIFICACAO = 'Sem_classificacao',
+  BRONZE = 'Bronze',
+  PRATA = 'Prata',
+  OURO = 'Ouro',
 }

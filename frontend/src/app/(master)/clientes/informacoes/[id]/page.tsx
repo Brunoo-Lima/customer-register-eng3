@@ -4,7 +4,7 @@ import Header from '@/components/ui/header';
 export default function InformationClientId() {
   return (
     <>
-      <Header title="Informações do cliente" />
+      <Header title="Informações do cliente" isButtonBack={true} />
 
       <InfoClient />
     </>
