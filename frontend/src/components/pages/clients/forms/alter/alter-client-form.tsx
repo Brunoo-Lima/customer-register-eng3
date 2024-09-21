@@ -7,15 +7,16 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import AlterClientPersonalInfoForm from './alter-client-personal-info-form';
 import AlterClientAddressResidentialForm from './alter-client-address-residential-form';
 import AlterClientAddressDeliveryBilling from './alter-client-address-delivery-billing';
 import AlterClientCreditCard from './alter-client-credit-card';
 
+//TODO: MELHORAR EDIÇÃO, NEM TODOS SÃO OBRIGATORIOS
+
 export default function AlterClientForm() {
   const router = useRouter();
-  const { id } = useParams();
   const methods = useForm({
     resolver: yupResolver(RegisterClientSchema),
     defaultValues: {
@@ -25,7 +26,6 @@ export default function AlterClientForm() {
   });
 
   const {
-    register,
     reset,
     handleSubmit,
     formState: { errors },

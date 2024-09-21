@@ -85,22 +85,3 @@ export const selectCities: ISelect[] = [
   { value: 'Aracaju', label: 'Aracaju' }, // Sergipe
   { value: 'Palmas', label: 'Palmas' }, // Tocantins
 ];
-
-export const selectRanking: ISelect[] = [
-  {
-    value: 'Sem_classificacao',
-    label: 'Sem classificação',
-  },
-  {
-    value: 'Bronze',
-    label: 'Bronze',
-  },
-  {
-    value: 'Prata',
-    label: 'Prata',
-  },
-  {
-    value: 'Ouro',
-    label: 'Ouro',
-  },
-];

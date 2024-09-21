@@ -4,12 +4,7 @@ import { clientsList } from '@/mocks/clientsList';
 import Table from './table';
 import { useFilter } from '@/hooks/useFilter';
 import InputSearch from '@/components/ui/Input-search';
-import {
-  selectCities,
-  selectRanking,
-  selectStatesUf,
-  selectStatus,
-} from '@/mocks/select';
+import { selectCities, selectStatesUf, selectStatus } from '@/mocks/select';
 import SelectSearch from '@/components/ui/select-search';
 
 export default function Clients() {
@@ -27,8 +22,6 @@ export default function Clients() {
     setFilteredData,
     selectedCity,
     setSelectedCity,
-    selectedRanking,
-    setSelectedRanking,
   } = useFilter();
 
   const applyFilters = () => {
@@ -46,16 +39,7 @@ export default function Clients() {
       const matchesCity =
         !selectedCity || client.address.city === selectedCity.value;
 
-      const matchesRanking =
-        !selectedRanking || client.ranking === selectedRanking.value;
-
-      return (
-        matchesName &&
-        matchesStatus &&
-        matchesState &&
-        matchesCity &&
-        matchesRanking
-      );
+      return matchesName && matchesStatus && matchesState && matchesCity;
     });
 
     setFilteredData(filtered);
@@ -99,14 +83,6 @@ export default function Clients() {
               options={selectCities}
               value={selectedCity}
               onChange={(value) => setSelectedCity(value)}
-            />
-
-            <SelectSearch
-              className="w-44"
-              placeholder="Ranking"
-              options={selectRanking}
-              value={selectedRanking}
-              onChange={(value) => setSelectedRanking(value)}
             />
           </div>
           {isSearching ? (

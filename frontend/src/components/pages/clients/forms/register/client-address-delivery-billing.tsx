@@ -12,14 +12,16 @@ export default function ClientAddressDeliveryBilling() {
   const [addressBilling, setAddressBilling] = useState<IAddressBilling[]>([]);
   const [isAddAddressDelivery, setIsAddAddressDelivery] = useState(false);
   const [isAddAddressBilling, setIsAddAddressBilling] = useState(false);
-  const [activeAddress, setActiveAddress] = useState<number | null>(null);
+  const [activeAddressBilling, setActiveAddressBilling] = useState<
+    number | null
+  >(null);
 
   const [activeAddressDelivery, setActiveAddressDelivery] = useState<
     number | null
   >(null);
 
-  const handleAddressClick = (index: number) => {
-    setActiveAddress(activeAddress === index ? null : index);
+  const handleAddressBillingClick = (index: number) => {
+    setActiveAddressBilling(activeAddressBilling === index ? null : index);
   };
 
   const handleDeleteAddressBilling = (id: number) => {
@@ -43,20 +45,41 @@ export default function ClientAddressDeliveryBilling() {
         <ul>
           {addressDelivery.map((address, index) => (
             <li key={index} className="mb-2">
-              <div
-                className="bg-blue-600 p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center"
-                onClick={() => handleAddressDeliveryClick(index)}
+              <label
+                className={`p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center relative transition duration-75 ${
+                  activeAddressDelivery === index
+                    ? 'bg-green-600'
+                    : 'bg-blue-600'
+                }`}
               >
+                <input
+                  type="radio"
+                  name="addressDelivery"
+                  value={index}
+                  checked={activeAddressDelivery === index}
+                  onChange={() => handleAddressDeliveryClick(index)}
+                  className="mr-2"
+                />
+
+                {activeAddressDelivery === index && (
+                  <span className="text-white text-xs absolute left-4">
+                    Principal
+                  </span>
+                )}
+
                 {address.name || `Endereço de entrega ${index + 1}`}
 
                 <button
                   className="z-10"
                   type="button"
-                  onClick={() => handleDeleteAddressDelivery(address.id)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Evita que o evento de clique do radio seja disparado
+                    handleDeleteAddressDelivery(address.id);
+                  }}
                 >
                   <XIcon size={18} color="#fff" />
                 </button>
-              </div>
+              </label>
               {activeAddressDelivery === index && (
                 <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
                   <p>Rua: {address.street}</p>
@@ -95,21 +118,41 @@ export default function ClientAddressDeliveryBilling() {
         <ul>
           {addressBilling.map((address, index) => (
             <li key={index} className="mb-2">
-              <div
-                className="bg-blue-600 p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center"
-                onClick={() => handleAddressClick(index)}
+              <label
+                className={`p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center relative transition duration-75 ${
+                  activeAddressBilling === index
+                    ? 'bg-green-600'
+                    : 'bg-blue-600'
+                }`}
               >
+                <input
+                  type="radio"
+                  name="addressBilling"
+                  value={index}
+                  checked={activeAddressBilling === index}
+                  onChange={() => handleAddressBillingClick(index)}
+                  className="mr-2"
+                />
+                {activeAddressBilling === index && (
+                  <span className="text-white text-xs absolute left-4">
+                    Principal
+                  </span>
+                )}
+
                 {`Endereço de cobrança ${index + 1}`}
 
                 <button
                   className="z-10"
                   type="button"
-                  onClick={() => handleDeleteAddressBilling(address.id)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Evita que o evento de clique do radio seja disparado
+                    handleDeleteAddressBilling(address.id);
+                  }}
                 >
                   <XIcon size={18} color="#fff" />
                 </button>
-              </div>
-              {activeAddress === index && (
+              </label>
+              {activeAddressBilling === index && (
                 <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
                   <p>Rua: {address.street}</p>
                   <p>Bairro: {address.neighborhood}</p>

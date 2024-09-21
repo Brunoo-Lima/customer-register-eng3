@@ -24,10 +24,26 @@ export default function ClientCreditCard() {
       <div>
         {creditCardList.map((credit, index) => (
           <li key={index} className="mb-2 list-none">
-            <div
-              className="bg-blue-600 p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center"
-              onClick={() => handleCreditCardClick(index)}
+            <label
+              className={`p-2 w-full text-left rounded-md cursor-pointer flex justify-between items-center relative transition duration-75 ${
+                activeCreditCard === index ? 'bg-green-600' : 'bg-blue-600'
+              }`}
             >
+              <input
+                type="radio"
+                name="creditCard"
+                value={index}
+                checked={activeCreditCard === index}
+                onChange={() => handleCreditCardClick(index)}
+                className="mr-2"
+              />
+
+              {activeCreditCard === index && (
+                <span className="text-white text-xs absolute left-4">
+                  Principal
+                </span>
+              )}
+
               {`Cartão ${index + 1}`}
 
               <button
@@ -37,7 +53,7 @@ export default function ClientCreditCard() {
               >
                 <XIcon size={18} color="#fff" />
               </button>
-            </div>
+            </label>
             {activeCreditCard === index && (
               <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
                 <p>Bandeira do cartão: {credit.flag}</p>

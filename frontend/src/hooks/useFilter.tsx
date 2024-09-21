@@ -14,8 +14,6 @@ interface IFilterContextProps {
   setSelectedState: React.Dispatch<React.SetStateAction<ISelect | null>>;
   selectedCity: ISelect | null;
   setSelectedCity: React.Dispatch<React.SetStateAction<ISelect | null>>;
-  selectedRanking: ISelect | null;
-  setSelectedRanking: React.Dispatch<React.SetStateAction<ISelect | null>>;
   searchName: string;
   setSearchName: React.Dispatch<React.SetStateAction<string>>;
   filteredData: IClient[];
@@ -37,7 +35,6 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
   const [selectedState, setSelectedState] = useState<ISelect | null>(null);
   const [selectedCity, setSelectedCity] = useState<ISelect | null>(null);
   const [searchName, setSearchName] = useState<string>('');
-  const [selectedRanking, setSelectedRanking] = useState<ISelect | null>(null);
   const [filteredData, setFilteredData] = useState<IClient[]>(clientsList);
 
   const clearFilters = () => {
@@ -65,8 +62,6 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
       setFilteredData,
       selectedCity,
       setSelectedCity,
-      selectedRanking,
-      setSelectedRanking,
     }),
     [
       selectedStatus,
@@ -81,8 +76,6 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
       setFilteredData,
       selectedCity,
       setSelectedCity,
-      selectedRanking,
-      setSelectedRanking,
     ]
   );
 

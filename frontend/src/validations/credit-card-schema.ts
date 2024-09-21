@@ -19,9 +19,11 @@ export const creditCardSchema = yup.object().shape({
   nameCreditCard: yup
     .string()
     .required('Nome no cartão de crédito é obrigatório.'),
-  dateExpired: yup
-    .string()
-    .required('Data de validade é obrigatória.')
-    .matches(/^\d{2}\/\d{2}$/, 'Data de validade deve estar no formato MM/AA.'),
+  dateExpired: yup.string().required('Data de validade é obrigatória.'),
+  //   .required('Data de validade é obrigatória.')
+  // dateExpired: yup
+  //   .string()
+  //   .required('Data de validade é obrigatória.')
+  //   .matches(/^\d{2}\/\d{2}$/, 'Data de validade deve estar no formato MM/AA.'),
   flag: yup.string().required('Escolha da bandeira é obrigatória.'),
 });

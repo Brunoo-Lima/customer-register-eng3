@@ -9,6 +9,11 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import { TextField, TextFieldProps } from '@mui/material';
 
 interface ICreditCardProps {
   creditCardList: ICreditCard[];
@@ -42,6 +47,10 @@ export default function CreditCardForm({
     reset();
   });
 
+  const handleDateChange = () => {
+    const formattedDate = dayjs().format('MM/YY');
+  };
+
   return (
     <div className="my-2">
       <div className="space-y-4 mb-4">
@@ -72,10 +81,39 @@ export default function CreditCardForm({
         />
 
         <div className="grid grid-cols-2 gap-4">
+          {/* <Controller
+            name="dateExpired"
+            control={control}
+            defaultValue={undefined}
+            render={({ field }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  views={['year', 'month']} // Visualização limitada a mês/ano
+                  label="Data de validade"
+                  value={field.value ? dayjs(field.value, 'MM/YY') : null}
+                  onChange={(newValue) => {
+                    // Formata a data para "MM/YY"
+                    const formattedDate = dayjs(newValue).format('MM/YY');
+                    field.onChange(formattedDate);
+                  }}
+                  renderInput={(params: TextFieldProps) => (
+                    <Input
+                      {...params} // Passa as propriedades necessárias para o Input
+                      error={!!errors.dateExpired}
+                      helperText={
+                        errors.dateExpired ? errors.dateExpired.message : ''
+                      }
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+            )}
+          /> */}
+
           <Input
             type="date"
             label="Data de validade"
-            placeholder="dd/mm"
+            placeholder="dd/mm/aaaa"
             {...register('dateExpired')}
             error={errors?.dateExpired}
           />

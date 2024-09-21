@@ -41,7 +41,6 @@ export default function AlterClientPersonalInfoForm({
         type="text"
         label="Nome completo"
         placeholder="Digite o nome completo"
-        error={errors?.name}
         {...register('name')}
       />
 
@@ -51,7 +50,6 @@ export default function AlterClientPersonalInfoForm({
           label="CPF"
           placeholder="000.000.000-00"
           {...register('cpf')}
-          error={errors?.cpf}
         />
 
         <Input
@@ -59,7 +57,6 @@ export default function AlterClientPersonalInfoForm({
           label="Data de nascimento"
           placeholder="dd/MM/aaaa"
           {...register('dateOfBirth')}
-          error={errors?.dateOfBirth}
         />
       </div>
 
@@ -81,19 +78,12 @@ export default function AlterClientPersonalInfoForm({
           label="Telefone"
           placeholder="(00) 0000-0000"
           {...register('phone')}
-          error={errors?.phone}
         />
 
         <div className="flex flex-col">
           <p className="block text-sm font-medium text-white">Gênero</p>
           <Radio label="Masculino" value="Masculino" {...register('gender')} />
           <Radio label="Feminino" value="Feminino" {...register('gender')} />
-
-          {errors?.gender && (
-            <span className="text-red-600 text-sm">
-              {errors.gender.message}
-            </span>
-          )}
         </div>
 
         <div>
