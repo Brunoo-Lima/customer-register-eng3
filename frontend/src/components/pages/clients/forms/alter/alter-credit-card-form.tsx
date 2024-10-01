@@ -3,8 +3,8 @@ import { selectFlagCrediCard } from '@/mocks/select';
 import Input from '@/components/ui/input';
 import SelectForm from '@/components/ui/select';
 import {
-  creditCardSchema,
-  ICreditCardSchema,
+  CreditCardFormSchema,
+  ICreditCardFormSchema,
 } from '@/validations/credit-card-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
@@ -30,8 +30,8 @@ export default function AlterCreditCardForm({
     handleSubmit,
     getValues,
     setValue,
-  } = useForm<ICreditCardSchema>({
-    resolver: yupResolver(creditCardSchema),
+  } = useForm<ICreditCardFormSchema>({
+    resolver: yupResolver(CreditCardFormSchema),
   });
   const { id } = useParams();
 

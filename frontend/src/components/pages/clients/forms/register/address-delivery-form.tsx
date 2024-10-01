@@ -4,8 +4,8 @@ import Input from '@/components/ui/input';
 import Textarea from '@/components/ui/textarea';
 import { getCep } from '@/services/cep';
 import {
-  addressDeliverySchema,
-  IAddressDeliverySchema,
+  IAddressDeliveryFormSchema,
+  IIAddressDeliveryFormSchema,
 } from '@/validations/address-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FocusEvent } from 'react';
@@ -26,8 +26,8 @@ export default function AddressDeliveryForm({
     setValue,
     reset,
     getValues,
-  } = useForm<IAddressDeliverySchema>({
-    resolver: yupResolver(addressDeliverySchema),
+  } = useForm<IIAddressDeliveryFormSchema>({
+    resolver: yupResolver(IAddressDeliveryFormSchema),
   });
 
   const handleAddAddress = () => {

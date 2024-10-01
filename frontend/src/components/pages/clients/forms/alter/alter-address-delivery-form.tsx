@@ -5,8 +5,8 @@ import Textarea from '@/components/ui/textarea';
 import { clientsList } from '@/mocks/clientsList';
 import { getCep } from '@/services/cep';
 import {
-  addressDeliverySchema,
-  IAddressDeliverySchema,
+  IAddressDeliveryFormSchema,
+  IIAddressDeliveryFormSchema,
 } from '@/validations/address-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from 'next/navigation';
@@ -28,8 +28,8 @@ export default function AlterAddressDeliveryForm({
     setValue,
     reset,
     getValues,
-  } = useForm<IAddressDeliverySchema>({
-    resolver: yupResolver(addressDeliverySchema),
+  } = useForm<IIAddressDeliveryFormSchema>({
+    resolver: yupResolver(IAddressDeliveryFormSchema),
   });
 
   const { id } = useParams();

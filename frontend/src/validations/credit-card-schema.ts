@@ -1,9 +1,9 @@
 import * as yup from 'yup';
 
-export type ICreditCardSchema = yup.InferType<typeof creditCardSchema>;
+export type ICreditCardFormSchema = yup.InferType<typeof CreditCardFormSchema>;
 
-export const creditCardSchema = yup.object().shape({
-  number: yup
+export const CreditCardFormSchema = yup.object().shape({
+  numberCard: yup
     .number()
     .typeError('Número do cartão deve ser um número.')
     .positive('Número do cartão deve ser positivo.')

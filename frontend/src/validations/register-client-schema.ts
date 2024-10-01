@@ -1,30 +1,39 @@
 import * as yup from 'yup';
-import { addressDeliverySchema, addressSchema } from './address-schema';
-import { creditCardSchema } from './credit-card-schema';
+import {
+  IAddressDeliveryFormSchema,
+  AddressFormSchema,
+} from './address-schema';
+import { CreditCardFormSchema } from './credit-card-schema';
 
-export type IRegisterClientForm = yup.InferType<typeof RegisterClientSchema>;
+export type IClientFormSchema = yup.InferType<typeof ClientSchema>;
 
-export const RegisterClientSchema = yup.object({
+export const ClientSchema = yup.object({
   name: yup.string().required('Nome é obrigatório'),
   cpf: yup.string().required('CPF é obrigatório'),
   dateOfBirth: yup.string().required('Data de nascimento é obrigatório'),
   typePhone: yup
     .string()
     .required('Obrigatório a escolha de um tipo de telefone'),
-  phone: yup.string().required('Telefone é obrigatório'),
+  phone: yup
+    .string()
+    .matches(
+      /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/,
+      'Telefone inválido. Tente novamente'
+    )
+    .required('Telefone é obrigatório'),
   gender: yup.string().required('Gênero é obrigatório'),
-  residentialAddress: addressSchema,
-  deliveryAddress: yup
-    .array()
-    .of(addressDeliverySchema)
-    .min(1, 'É necessário pelo menos um endereço de entrega'),
-  billingAddress: yup
-    .array()
-    .of(addressSchema)
-    .min(1, 'É necessário pelo menos um endereço de cobrança'),
+  // residentialAddress: addressSchema,
+  // deliveryAddress: yup
+  //   .array()
+  //   .of(addressDeliverySchema)
+  //   .min(1, 'É necessário pelo menos um endereço de entrega'),
+  // billingAddress: yup
+  //   .array()
+  //   .of(addressSchema)
+  //   .min(1, 'É necessário pelo menos um endereço de cobrança'),
   creditCard: yup
     .array()
-    .of(creditCardSchema)
+    .of(CreditCardFormSchema)
     .min(1, 'É necessário pelo menos um cartão de crédito'),
   status: yup.string().default('Ativo'),
   email: yup.string().email().required('E-mail é obrigatório'),

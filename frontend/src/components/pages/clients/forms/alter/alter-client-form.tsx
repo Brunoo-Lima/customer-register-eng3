@@ -2,7 +2,7 @@
 
 import {
   IRegisterClientForm,
-  RegisterClientSchema,
+  ClientSchema,
 } from '@/validations/register-client-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -18,7 +18,7 @@ import AlterClientCreditCard from './alter-client-credit-card';
 export default function AlterClientForm() {
   const router = useRouter();
   const methods = useForm({
-    resolver: yupResolver(RegisterClientSchema),
+    resolver: yupResolver(ClientSchema),
     defaultValues: {
       deliveryAddress: [],
       billingAddress: [],

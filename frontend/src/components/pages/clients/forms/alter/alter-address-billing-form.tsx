@@ -4,7 +4,10 @@ import Input from '@/components/ui/input';
 import Textarea from '@/components/ui/textarea';
 import { clientsList } from '@/mocks/clientsList';
 import { getCep } from '@/services/cep';
-import { addressSchema, IAddressSchema } from '@/validations/address-schema';
+import {
+  AddressFormSchema,
+  IAddressFormSchema,
+} from '@/validations/address-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from 'next/navigation';
 import { FocusEvent, useEffect } from 'react';
@@ -25,8 +28,8 @@ export default function AlterAddressBillingForm({
     reset,
     getValues,
     setValue,
-  } = useForm<IAddressSchema>({
-    resolver: yupResolver(addressSchema),
+  } = useForm<IAddressFormSchema>({
+    resolver: yupResolver(AddressFormSchema),
   });
   const { id } = useParams();
 

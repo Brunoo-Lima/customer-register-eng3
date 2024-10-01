@@ -1,12 +1,15 @@
 import * as yup from 'yup';
 
-export type IAddressSchema = yup.InferType<typeof addressSchema>;
+export type IAddressFormSchema = yup.InferType<typeof AddressFormSchema>;
 
-export const addressSchema = yup.object({
+export const AddressFormSchema = yup.object({
   neighborhood: yup.string().required('Bairro é obrigatório'),
   publicPlace: yup.string().required('Logradouro é obrigatório'),
   street: yup.string().required('Rua é obrigatório'),
-  number: yup.string().required('Número é obrigatório'),
+  number: yup
+    .string()
+    .required('Número é obrigatório')
+    .min(2, 'Número não pode ser vazio'),
   zipCode: yup.string().required('CEP é obrigatório'),
   city: yup.string().required('Cidade é obrigatório'),
   state: yup.string().required('Estado é obrigatório'),
@@ -14,10 +17,10 @@ export const addressSchema = yup.object({
   observation: yup.string().optional(),
 });
 
-export type IAddressDeliverySchema = yup.InferType<
-  typeof addressDeliverySchema
+export type IIAddressDeliveryFormSchema = yup.InferType<
+  typeof IAddressDeliveryFormSchema
 >;
 
-export const addressDeliverySchema = addressSchema.shape({
+export const IAddressDeliveryFormSchema = AddressFormSchema.shape({
   name: yup.string().required('Nome é obrigatório'),
 });
