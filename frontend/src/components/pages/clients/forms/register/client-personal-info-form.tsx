@@ -1,17 +1,14 @@
 import Input from '@/components/ui/input';
 import Radio from '@/components/ui/radio';
-import { IRegisterClientForm } from '@/validations/register-client-schema';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { IClientFormSchema } from '@/validations/register-client-schema';
+import { useFormContext } from 'react-hook-form';
 
-interface IClientPersonal {
-  register: UseFormRegister<IRegisterClientForm>;
-  errors: FieldErrors<IRegisterClientForm>;
-}
+export default function ClientPersonalInfoForm() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<IClientFormSchema>();
 
-export default function ClientPersonalInfoForm({
-  register,
-  errors,
-}: IClientPersonal) {
   return (
     <>
       <Input
@@ -57,9 +54,12 @@ export default function ClientPersonalInfoForm({
           type="tel"
           label="Telefone"
           placeholder="(00) 0000-0000"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           {...register('phone')}
           error={errors?.phone}
+          onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const input = event.target;
+            input.value = input.value.replace(/[^0-9]/g, '');
+          }}
         />
 
         <div className="flex flex-col">

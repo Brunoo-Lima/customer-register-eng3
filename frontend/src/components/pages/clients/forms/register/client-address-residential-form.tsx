@@ -1,20 +1,16 @@
 import Input from '@/components/ui/input';
 import Textarea from '@/components/ui/textarea';
 import { getCep } from '@/services/cep';
-import { IRegisterClientForm } from '@/validations/register-client-schema';
+import { IClientFormSchema } from '@/validations/register-client-schema';
 import { FocusEvent } from 'react';
-import { FieldErrors, useFormContext, UseFormRegister } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
-interface IAddressResidential {
-  register: UseFormRegister<IRegisterClientForm>;
-  errors: FieldErrors<IRegisterClientForm>;
-}
-
-export default function ClientAddressResidentialForm({
-  errors,
-  register,
-}: IAddressResidential) {
-  const { setValue } = useFormContext<IRegisterClientForm>();
+export default function ClientAddressResidentialForm() {
+  const {
+    setValue,
+    register,
+    formState: { errors },
+  } = useFormContext<IClientFormSchema>();
 
   const handleAddCep = async (e: FocusEvent<HTMLInputElement>) => {
     const cep = e.target.value.replace(/\D/g, '');
@@ -22,7 +18,7 @@ export default function ClientAddressResidentialForm({
     try {
       const data = await getCep(cep);
 
-      setValue('residentialAddress.street', data.logradouro);
+      setValue('residentialAddress.city', data.logradouro);
       setValue('residentialAddress.neighborhood', data.bairro);
       setValue('residentialAddress.publicPlace', data.complemento);
       setValue('residentialAddress.city', data.localidade);

@@ -1,6 +1,6 @@
 export interface ICreditCard {
   id: number;
-  number: number;
+  numberCard: number;
   cvv: number;
   nameCreditCard: string;
   dateExpired: string;

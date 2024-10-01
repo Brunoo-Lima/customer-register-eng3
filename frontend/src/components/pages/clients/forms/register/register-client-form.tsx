@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  IRegisterClientForm,
+  IClientFormSchema,
   ClientSchema,
 } from '@/validations/register-client-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,14 +11,12 @@ import Button from '@/components/ui/button';
 import ClientAddressResidentialForm from './client-address-residential-form';
 import ClientAddressDeliveryBilling from './client-address-delivery-billing';
 import ClientCreditCard from './client-credit-card';
+import { useState } from 'react';
+import { IAddressBilling, IAddressDelivery } from '@/@types/client';
 
 export default function RegisterClientForm() {
   const methods = useForm({
     resolver: yupResolver(ClientSchema),
-    defaultValues: {
-      deliveryAddress: [],
-      billingAddress: [],
-    },
   });
 
   const {
@@ -27,12 +25,28 @@ export default function RegisterClientForm() {
     handleSubmit,
     formState: { errors },
   } = methods;
+  const [deliveryAddresses, setDeliveryAddresses] = useState([]);
+  const [billingAddresses, setBillingAddresses] = useState([]);
 
-  const onSubmit: SubmitHandler<IRegisterClientForm> = () => {};
+  const onSubmit: SubmitHandler<IClientFormSchema> = (data) => {
+    console.log('teste data', data);
+  };
 
   const clearFormFields = () => {
     reset();
   };
+
+  // const addDeliveryAddress = (address: IAddressDelivery) => {
+  //   const addressData: IAddressDelivery = {
+  //     ...address,
+  //   };
+  //   setDeliveryAddresses([...deliveryAddresses, addressData]);
+  // };
+
+  // const addBillingAddress = (address: IAddressBilling[]) => {
+  //   setBillingAddresses((prev) => [...prev, address]);
+  //   // resetAddressFields();
+  // };
 
   return (
     <FormProvider {...methods}>
@@ -42,15 +56,9 @@ export default function RegisterClientForm() {
       >
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-4">
-            <ClientPersonalInfoForm
-              register={methods.register}
-              errors={errors}
-            />
+            <ClientPersonalInfoForm />
 
-            <ClientAddressResidentialForm
-              register={methods.register}
-              errors={errors}
-            />
+            <ClientAddressResidentialForm />
           </div>
           <div className="space-y-4">
             <ClientAddressDeliveryBilling />

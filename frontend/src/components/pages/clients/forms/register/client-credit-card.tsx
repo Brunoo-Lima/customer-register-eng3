@@ -57,7 +57,7 @@ export default function ClientCreditCard() {
             {activeCreditCard === index && (
               <div className="bg-zinc-800 border-[1px] rounded-md border-gray-500 p-2 grid grid-cols-2 my-2">
                 <p>Bandeira do cartão: {credit.flag}</p>
-                <p>N° do cartão: {credit.number}</p>
+                <p>N° do cartão: {credit.numberCard}</p>
                 <p>CVV: {credit.cvv}</p>
                 <p>Nome: {credit.nameCreditCard}</p>
                 <p>Expira: {credit.dateExpired}</p>

@@ -17,10 +17,10 @@ export const AddressFormSchema = yup.object({
   observation: yup.string().optional(),
 });
 
-export type IIAddressDeliveryFormSchema = yup.InferType<
-  typeof IAddressDeliveryFormSchema
+export type IAddressDeliveryFormSchema = yup.InferType<
+  typeof AddressDeliveryFormSchema
 >;
 
-export const IAddressDeliveryFormSchema = AddressFormSchema.shape({
+export const AddressDeliveryFormSchema = AddressFormSchema.shape({
   name: yup.string().required('Nome é obrigatório'),
 });

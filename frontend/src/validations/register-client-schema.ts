@@ -1,8 +1,5 @@
 import * as yup from 'yup';
-import {
-  IAddressDeliveryFormSchema,
-  AddressFormSchema,
-} from './address-schema';
+import { AddressFormSchema, AddressDeliveryFormSchema } from './address-schema';
 import { CreditCardFormSchema } from './credit-card-schema';
 
 export type IClientFormSchema = yup.InferType<typeof ClientSchema>;
@@ -22,15 +19,15 @@ export const ClientSchema = yup.object({
     )
     .required('Telefone é obrigatório'),
   gender: yup.string().required('Gênero é obrigatório'),
-  // residentialAddress: addressSchema,
-  // deliveryAddress: yup
-  //   .array()
-  //   .of(addressDeliverySchema)
-  //   .min(1, 'É necessário pelo menos um endereço de entrega'),
-  // billingAddress: yup
-  //   .array()
-  //   .of(addressSchema)
-  //   .min(1, 'É necessário pelo menos um endereço de cobrança'),
+  residentialAddress: AddressFormSchema,
+  deliveryAddress: yup
+    .array()
+    .of(AddressDeliveryFormSchema)
+    .min(1, 'É necessário pelo menos um endereço de entrega'),
+  billingAddress: yup
+    .array()
+    .of(AddressFormSchema)
+    .min(1, 'É necessário pelo menos um endereço de cobrança'),
   creditCard: yup
     .array()
     .of(CreditCardFormSchema)

@@ -3,13 +3,9 @@ import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Textarea from '@/components/ui/textarea';
 import { getCep } from '@/services/cep';
-import {
-  AddressFormSchema,
-  IAddressFormSchema,
-} from '@/validations/address-schema';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { IAddressFormSchema } from '@/validations/address-schema';
 import { FocusEvent } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 interface IAddressBillingProps {
   addressBilling: IAddressBilling[];
@@ -26,9 +22,7 @@ export default function AddressBillingForm({
     reset,
     getValues,
     setValue,
-  } = useForm<IAddressFormSchema>({
-    resolver: yupResolver(AddressFormSchema),
-  });
+  } = useFormContext<IAddressFormSchema>();
 
   const handleAddAddress = () => {
     const newAddress = getValues();
