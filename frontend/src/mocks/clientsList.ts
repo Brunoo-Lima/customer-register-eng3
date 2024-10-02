@@ -26,7 +26,7 @@ export const clientsList = [
     addressDelivery: [
       {
         id: 1,
-        name: 'Principal',
+        identifier: 'Principal',
         street: 'Rua Teste',
         number: '123',
         neighborhood: 'Bairro Teste',
@@ -90,7 +90,7 @@ export const clientsList = [
     addressDelivery: [
       {
         id: 1,
-        name: 'Principal',
+        identifier: 'Principal',
         street: 'Rua Teste',
         number: '123',
         neighborhood: 'Bairro Teste',

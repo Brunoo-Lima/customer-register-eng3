@@ -2,19 +2,16 @@ import { ICreditCard } from '@/@types/credit-card';
 import { selectFlagCrediCard } from '@/mocks/select';
 import Input from '@/components/ui/input';
 import SelectForm from '@/components/ui/select';
-import {
-  CreditCardFormSchema,
-  ICreditCardFormSchema,
-} from '@/validations/credit-card-schema';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
+import { ICreditCardFormSchema } from '@/validations/credit-card-schema';
+import { Controller, useForm, useFormContext } from 'react-hook-form';
 import Button from '@/components/ui/button';
-import dayjs from 'dayjs';
 
 interface ICreditCardProps {
   creditCardList: ICreditCard[];
   setCreditCardList: React.Dispatch<React.SetStateAction<ICreditCard[]>>;
 }
+
+//TODO: MELHORAR FORMA DE ADICIONAR CARTAO E LIMPAR CAMPOS
 
 export default function CreditCardForm({
   creditCardList,
@@ -27,11 +24,9 @@ export default function CreditCardForm({
     reset,
     handleSubmit,
     getValues,
-  } = useForm<ICreditCardFormSchema>({
-    resolver: yupResolver(CreditCardFormSchema),
-  });
+  } = useFormContext<ICreditCardFormSchema>();
 
-  const handleAddCreditCard = handleSubmit(() => {
+  const handleAddCreditCard = () => {
     const newCreditCard = getValues();
 
     const creditCardWithID: ICreditCard = {
@@ -40,8 +35,7 @@ export default function CreditCardForm({
     };
 
     setCreditCardList([...creditCardList, creditCardWithID]);
-    reset();
-  });
+  };
 
   return (
     <div className="my-2">

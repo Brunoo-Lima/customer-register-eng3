@@ -33,7 +33,6 @@ export default function AddressDeliveryForm({
     };
 
     setAddressDelivery([...addressDelivery, addressDeliveryWithId]);
-    reset();
   };
 
   const handleAddCep = async (e: FocusEvent<HTMLInputElement>) => {
@@ -58,8 +57,8 @@ export default function AddressDeliveryForm({
         type="text"
         label="Nome do Endereço"
         placeholder="Nome curto para identificar o endereço"
-        {...register('name')}
-        error={errors.name}
+        {...register('identifier')}
+        error={errors.identifier}
       />
 
       <div className="grid md:grid-cols-2 md:gap-6">

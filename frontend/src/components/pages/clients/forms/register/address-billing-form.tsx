@@ -33,7 +33,6 @@ export default function AddressBillingForm({
     };
 
     setAddressBilling([...addressBilling, addressBillingWithId]);
-    reset();
   };
 
   const handleAddCep = async (e: FocusEvent<HTMLInputElement>) => {

@@ -14,6 +14,8 @@ import ClientCreditCard from './client-credit-card';
 import { useState } from 'react';
 import { IAddressBilling, IAddressDelivery } from '@/@types/client';
 
+//TODO: MELHORAR FORMA DE LIMPAR CAMPOS
+
 export default function RegisterClientForm() {
   const methods = useForm({
     resolver: yupResolver(ClientSchema),

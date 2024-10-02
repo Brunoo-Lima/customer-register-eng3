@@ -22,5 +22,5 @@ export type IAddressDeliveryFormSchema = yup.InferType<
 >;
 
 export const AddressDeliveryFormSchema = AddressFormSchema.shape({
-  name: yup.string().required('Nome é obrigatório'),
+  identifier: yup.string().required('Nome é obrigatório'),
 });

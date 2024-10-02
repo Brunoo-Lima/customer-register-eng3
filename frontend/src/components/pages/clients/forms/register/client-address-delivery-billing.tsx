@@ -67,7 +67,7 @@ export default function ClientAddressDeliveryBilling() {
                   </span>
                 )}
 
-                {address.name || `Endereço de entrega ${index + 1}`}
+                {address.identifier || `Endereço de entrega ${index + 1}`}
 
                 <button
                   className="z-10"

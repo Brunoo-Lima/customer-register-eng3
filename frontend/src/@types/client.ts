@@ -18,7 +18,7 @@ export interface IAddressBilling extends IAddress {
 
 export interface IAddressDelivery extends IAddress {
   id: number;
-  name: string;
+  identifier: string;
 }
 
 export interface IClient {
