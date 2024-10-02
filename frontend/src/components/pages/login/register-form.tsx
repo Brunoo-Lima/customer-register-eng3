@@ -1,3 +1,4 @@
+import { createUser } from '@/services/create-user';
 import { IRegisterForm, RegisterSchema } from '@/validations/register-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -18,7 +19,13 @@ export default function RegisterForm({ back }: IRegisterProps) {
 
   const onSubmit: SubmitHandler<IRegisterForm> = async (form) => {
     try {
-      // await login(form.user, form.password);
+      const user = {
+        email: form.email,
+        password: form.password,
+      };
+
+      const response = await createUser(user);
+      console.log('response', response);
       back();
     } catch (err: any) {
       console.log(err);
@@ -31,15 +38,15 @@ export default function RegisterForm({ back }: IRegisterProps) {
       className="flex flex-col w-[300px] space-y-5"
     >
       <div className="flex flex-col">
-        <label htmlFor="name">Usuário</label>
+        <label htmlFor="name">E-mail</label>
         <input
           className="text-black text-base rounded-md h-8 ps-2 pe-2 outline-none border-[1.5px] border-transparent focus-visible:border-blue-500"
           type="text"
-          placeholder="Digite seu nome"
-          {...register('name')}
+          placeholder="Digite seu email"
+          {...register('email')}
         />
-        {errors.name && (
-          <span className="text-xs text-red-500">{errors.name.message}</span>
+        {errors.email && (
+          <span className="text-xs text-red-500">{errors.email.message}</span>
         )}
       </div>
 
@@ -58,7 +65,7 @@ export default function RegisterForm({ back }: IRegisterProps) {
         )}
       </div>
 
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         <label htmlFor="confirmPassword">Confirmar senha</label>
         <input
           className="text-black text-base rounded-md h-8 ps-2 pe-2 outline-none border-[1.5px] border-transparent focus-visible:border-blue-500"
@@ -71,7 +78,7 @@ export default function RegisterForm({ back }: IRegisterProps) {
             {errors.confirmPassword.message}
           </span>
         )}
-      </div>
+      </div> */}
 
       <button
         type="submit"

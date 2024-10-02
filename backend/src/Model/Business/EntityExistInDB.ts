@@ -2,21 +2,23 @@ import { EntityDomain } from "../domain/EntityDomain";
 import { Facade } from "../../Controllers/Facade/Facade";
 import { IStrategy } from "../../interfaces/IStrategy";
 
-export class EntityExistInDB implements IStrategy{
-    async process(entity:EntityDomain): Promise<object> {
+export class EntityExistInDB implements IStrategy {
+    async process(entity: EntityDomain): Promise<object> {
         try {
-            const facade = new Facade(entity)
-            const entityExist = await facade.findMany()
-            if(entityExist){
-                return  {
-                    error: `${entity.constructor.name} Exists in DataBase !`
-                }
+            const facade = new Facade(entity);
+            const entityExist = await facade.find();
+            if (entityExist) {
+                return {
+                    error: `${entity.constructor.name} Exists in DataBase !`,
+                };
             }
-            return { success: "Entity was created !"}
-        } catch (e){
+
+            console.log("entidade aqui teste", entity);
+            return { success: "Entity was created !" };
+        } catch (e) {
             return {
-                error: e
-            }
+                error: e,
+            };
         }
     }
 }

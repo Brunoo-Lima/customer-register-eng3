@@ -9,11 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^3.9.0",
-    "@mui/material": "^6.1.1",
-    "@mui/x-date-pickers": "^7.18.0",
+    "@tanstack/react-query": "^5.59.0",
     "axios": "^1.7.6",
     "dayjs": "^1.11.13",
     "lucide-react": "^0.429.0",
@@ -26,6 +23,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.58.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
