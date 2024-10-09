@@ -60,6 +60,7 @@ CREATE TABLE `Address` (
     `fk_add_cli_id` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Address_add_name_key`(`add_name`),
+    UNIQUE INDEX `Address_add_cep_add_name_add_number_add_streetName_key`(`add_cep`, `add_name`, `add_number`, `add_streetName`),
     PRIMARY KEY (`add_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

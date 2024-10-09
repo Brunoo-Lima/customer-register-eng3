@@ -1,34 +1,39 @@
 import { expect, it } from "vitest";
 import { Address } from "../Model/domain/Address";
-import { State } from "../Model/domain/State";
-import { Client, ClientProps } from "../Model/domain/Client";
+import { Client } from "../Model/domain/Client";
 import { StatusClient } from "../Model/domain/types/StatusClient";
 import { TypeResidence } from "../Model/domain/types/TypeResidence";
 import { ProfilePurchase } from "../Model/domain/types/ProfilePurchase";
 import { Gender } from "../Model/domain/types/Gender";
 import { TypePhone } from "../Model/domain/types/TypePhone";
 import { Phone } from "../Model/domain/Phone";
-import { City } from "../Model/domain/City";
 import { CPF } from "../Model/domain/CPF";
+// import { ValidDataClient } from "../Model/Business/ValidDataClient";
+import { CreditCart } from "../Model/domain/CreditCard";
+import { StatusPayment } from "../Model/domain/types/StatusPayment";
+import { Flags } from "../Model/domain/types/Flags";
+import { ValidPassword } from "../Model/Business/ValidPassword";
 
 const clientDTO = {
     "phones": [
         {
             "ddd": "11",
-            "number": "99999999",
-            "typePhone": "FIXO"
+            "number": "11111",
+            "typePhone": "111"
         }
     ],
     "profilePurchase": "BRONZE",
-    "name": "Danilo",
+    "name": "teste",
     "dateOfBirth": "17/03/2004",
     "email": "teste21@gmail.com",
     "cpf": "12345678932",
     "gender": "MEN",
-    "password": "12245678A",
-    "addresses":[
+    "rfmScore": 0,
+    "password": "12245678Aa#",
+    "confirmPassword": "12245678Aa#",
+    "addresses": [
         {
-            "streetName": "teste",
+            "streetName": "123",
             "publicPlace": "Rua", // Logradouro
             "nameAddress": "testes2",
             "number": "43",
@@ -36,7 +41,7 @@ const clientDTO = {
             "neighborhood": "Cidade Kemel",
             "city": "São Paulo",
             "state": "São Paulo",
-            "country": "Brasil",
+            "country": "",
             "compostName": "Rua de teste",
             "typeResidence": "HOME",
             "change": true,
@@ -58,10 +63,15 @@ const clientDTO = {
             "delivery": true
         }
     ],
-    "creditCart": null
+    "creditCart": {
+
+    }
 }
 
 it("Should create domain entity", () => {
+    // const validDataRequired = new ValidDataClient()
+    const validPassword = new ValidPassword()
+
     const phones: Phone[] = clientDTO.phones.map(phoneDTO => {
         return new Phone({
             _ddd: phoneDTO.ddd,
@@ -78,11 +88,8 @@ it("Should create domain entity", () => {
             number: addressDTO.number,
             cep: addressDTO.cep,
             neighborhood: addressDTO.neighborhood,
-            city: new City(addressDTO.city),
-            state: new State(
-                addressDTO.state
-            ),
-            country: addressDTO.country,
+            city: addressDTO.city,
+            state: addressDTO.state,
             compostName: addressDTO.compostName,
             typeResidence: addressDTO.typeResidence as TypeResidence,
             change: addressDTO.change,
@@ -90,36 +97,34 @@ it("Should create domain entity", () => {
         });
     });
 
-    // Mapeamento do cartão de crédito (se houver)
-    // const creditCart = clientDTO.creditCart
-    //     ? clientDTO.creditCart.map((card) => {
-    //         return new CreditCart({
-    //             _namePrinted: card.namePrinted,
-    //             _number: card.number,
-    //             _cvv: card.cvv,
-    //             _dateValid: card.dateValid,
-    //             _flag: card.flag,
-    //             _status: card.status,
-    //             _preference: card.preference
-    //         })
-    //     })
-    //     : null;
-    // Criando o objeto Client com os dados mapeados
-    const clientProps: ClientProps = {
-        phones: phones,
-        profilePurchase: clientDTO.profilePurchase as ProfilePurchase,
-        name: clientDTO.name,
-        dateOfBirth: clientDTO.dateOfBirth,
-        email: clientDTO.email,
-        password: clientDTO.password,
-        cpf: new CPF(clientDTO.cpf), // Assumindo que CPF tem uma classe própria
-        statusClient: StatusClient.ACTIVATE, // Você pode ajustar isso de acordo com sua lógica
-        gender: clientDTO.gender as Gender,
-        rfmScore: 0, // Aqui você pode calcular ou ajustar a pontuação RFM
-        addresses: addresses,
-        creditCart: null,
-        ranking: 1
-    };
-    const client = new Client(clientProps)
-    expect(client).instanceOf(Client)
+
+    const client = new Client(
+        phones,
+        clientDTO.profilePurchase as ProfilePurchase,
+        clientDTO.name,
+        clientDTO.dateOfBirth,
+        clientDTO.email,
+        clientDTO.password,
+        clientDTO.confirmPassword,
+        new CPF(clientDTO.cpf), // Assumindo que CPF tem uma classe própria
+        StatusClient.ACTIVATE, // Você pode ajustar isso de acordo com sua lógica
+        clientDTO.gender as Gender,
+        1,
+        1, // Aqui você pode calcular ou ajustar a pontuação RFM
+        addresses,
+        [new CreditCart({
+            _namePrinted:"qwew",
+            _number: "qwe",
+            _cvv:"qwe",
+            _dateValid: "qwe",
+            _flag: Flags.MASTERCARD,
+            _status: StatusPayment.DENY,
+            _preference: false,
+        })]
+    )
+    // const object = validDataRequired.process(client)
+    const objectPassword = validPassword.process(client)
+
+    console.log(objectPassword)
+    expect(objectPassword).haveOwnProperty('success')
 })

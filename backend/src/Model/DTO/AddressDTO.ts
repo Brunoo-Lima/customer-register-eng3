@@ -1,6 +1,7 @@
 import { TypeResidence } from "../domain/types/TypeResidence"
 
 export interface AddressDTO {
+    id: string;
     streetName: string,
     nameAddress: string,
     publicPlace: string,
@@ -11,6 +12,6 @@ export interface AddressDTO {
     state: string,
     compostName: string,
     typeResidence: TypeResidence,
-    change: boolean,
-    delivery: boolean
+    change: boolean | undefined,
+    delivery: boolean | undefined
 }

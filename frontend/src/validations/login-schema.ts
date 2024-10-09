@@ -3,7 +3,7 @@ import * as yup from 'yup';
 export type ILoginForm = yup.InferType<typeof LoginSchema>;
 
 export const LoginSchema = yup.object({
-  user: yup.string().required('Usuário é obrigatório'),
+  email: yup.string().required('E-mail é obrigatório').email('E-mail inválido'),
   password: yup
     .string()
     .required('Senha é obrigatória')

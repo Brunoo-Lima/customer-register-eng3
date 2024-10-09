@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from '../../../hooks/useAuth';
 import { ILoginForm, LoginSchema } from '../../../validations/login-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
 
 interface ILoginProps {
   create: () => void;
@@ -19,9 +20,9 @@ export default function LoginForm({ create }: ILoginProps) {
 
   const onSubmit: SubmitHandler<ILoginForm> = async (form) => {
     try {
-      await login(form.user, form.password);
+      await login(form.email, form.password);
     } catch (err: any) {
-      console.log(err);
+      toast.warn('Usuário ou senha inválidos!');
     }
   };
 
@@ -31,15 +32,15 @@ export default function LoginForm({ create }: ILoginProps) {
       className="flex flex-col w-[300px] space-y-5"
     >
       <div className="flex flex-col">
-        <label htmlFor="user">Usuário</label>
+        <label htmlFor="user">Email</label>
         <input
           className="text-black text-base rounded-md h-8 ps-2 pe-2 outline-none border-[1.5px] border-transparent focus-visible:border-blue-500"
           type="text"
-          placeholder="Digite seu nome"
-          {...register('user')}
+          placeholder="Digite seu email"
+          {...register('email')}
         />
-        {errors.user && (
-          <span className="text-xs text-red-500">{errors.user.message}</span>
+        {errors.email && (
+          <span className="text-xs text-red-500">{errors.email.message}</span>
         )}
       </div>
 

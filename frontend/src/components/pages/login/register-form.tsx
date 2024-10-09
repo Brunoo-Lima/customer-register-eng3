@@ -2,6 +2,7 @@ import { createUser } from '@/services/create-user';
 import { IRegisterForm, RegisterSchema } from '@/validations/register-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 interface IRegisterProps {
   back: () => void;
@@ -22,13 +23,14 @@ export default function RegisterForm({ back }: IRegisterProps) {
       const user = {
         email: form.email,
         password: form.password,
+        confirmPassword: form.confirmPassword,
       };
 
       const response = await createUser(user);
-      console.log('response', response);
+      toast.success('Usuário criado com sucesso!');
       back();
     } catch (err: any) {
-      console.log(err);
+      toast.error('Algo deu errado!');
     }
   };
 
@@ -65,7 +67,7 @@ export default function RegisterForm({ back }: IRegisterProps) {
         )}
       </div>
 
-      {/* <div className="flex flex-col">
+      <div className="flex flex-col">
         <label htmlFor="confirmPassword">Confirmar senha</label>
         <input
           className="text-black text-base rounded-md h-8 ps-2 pe-2 outline-none border-[1.5px] border-transparent focus-visible:border-blue-500"
@@ -78,7 +80,7 @@ export default function RegisterForm({ back }: IRegisterProps) {
             {errors.confirmPassword.message}
           </span>
         )}
-      </div> */}
+      </div>
 
       <button
         type="submit"

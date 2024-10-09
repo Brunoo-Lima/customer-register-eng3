@@ -10,12 +10,11 @@ export interface AddressProps {
     neighborhood: string,
     city: string,
     state: string,
-    country: string,
     compostName: string,
     typeResidence: TypeResidence,
-    change: boolean,
     nameAddress: string,
-    delivery: boolean,
+    change: boolean | undefined,
+    delivery: boolean | undefined,
 }
 
 export class Address extends EntityDomain {
@@ -78,13 +77,6 @@ export class Address extends EntityDomain {
     public set state(state: string) {
         this.addressProps.state = state;
     }
-
-    get country(): string {
-        return this.addressProps.country;
-    }
-    public set country(country: string) {
-        this.addressProps.country = country;
-    }
     get compostName(): string {
         return this.addressProps.compostName;
     }
@@ -99,14 +91,14 @@ export class Address extends EntityDomain {
     public set typeResidence(typeResidence: TypeResidence) {
         this.addressProps.typeResidence = typeResidence;
     }
-    get delivery(): boolean {
+    get delivery(): boolean | undefined{
         return this.addressProps.delivery;
     }
 
     public set delivery(delivery: boolean) {
         this.addressProps.delivery = delivery;
     }
-    get change(): boolean {
+    get change(): boolean | undefined{
         return this.addressProps.change;
     }
 

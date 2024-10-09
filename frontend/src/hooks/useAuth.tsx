@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
+import { loginService } from '@/services/login';
+import handleError from '@/utilities/handle-toast';
 import { redirect, usePathname, useRouter } from 'next/navigation';
 import {
   createContext,
@@ -10,11 +12,15 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { toast } from 'react-toastify';
 
 interface IUser {
-  id: number;
-  name: string;
+  id: string;
   email: string;
+}
+
+export interface AuthToken {
+  token: string;
 }
 
 interface IAuthProvider {
@@ -32,38 +38,66 @@ export const AuthContext = createContext({} as IAuthProvider);
 
 const AuthProvider = ({ children }: ChildrenProps) => {
   const [user, setUser] = useState<IUser>({} as IUser);
+  const [authToken, setAuthToken] = useState<AuthToken>({} as AuthToken);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    const token = localStorage.getItem('@token:access');
-    const storedUser = localStorage.getItem('@user:data');
+    const fetchUserData = async () => {
+      const storageToken = localStorage.getItem('@token:access');
 
-    if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+      if (storageToken) {
+        try {
+          setAuthToken({ token: storageToken });
 
-    setLoading(false);
+          const data = await loginService(JSON.parse(storageToken));
+
+          setUser({
+            id: data.user.id,
+            email: data.user.email,
+          });
+        } catch (err) {
+          logout();
+        }
+        // setLoading(false);
+      } else {
+        router.push('/');
+      }
+    };
+
+    fetchUserData();
   }, []);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('@token:access');
+    if (accessToken && pathname === '/') {
+      router.replace('/clientes');
+    }
+  }, [router]);
 
   const login = async (user: string, password: string) => {
     try {
-      if (user === 'admin' && password === '12345678') {
-        const userData = {
-          id: 1,
-          name: 'Bruno',
-          email: 'admin@admin',
-        };
+      const { user: userData, token } = await loginService({
+        email: user,
+        password,
+      });
 
-        setUser(userData);
+      if (userData && token) {
+        setAuthToken({ token });
 
-        localStorage.setItem('@token:access', '123');
-        localStorage.setItem('@user:data', JSON.stringify(userData));
+        setUser({
+          id: userData.id,
+          email: userData.email,
+        });
+
+        localStorage.setItem('@token:access', token);
         router.push('/clientes');
+      } else {
+        toast.error('Usuário ou senha inválidos!');
       }
     } catch (err) {
-      console.log(err);
+      toast.error('Erro ao tentar logar, verifique suas credenciais.');
     }
   };
 
@@ -96,9 +130,9 @@ const AuthProvider = ({ children }: ChildrenProps) => {
     [user]
   );
 
-  if (loading) {
-    return null;
-  }
+  // if (loading) {
+  //   return null;
+  // }
 
   return (
     <AuthContext.Provider value={authValues}>{children}</AuthContext.Provider>
